@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">KlaverjasScoreApp</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_reset">Reset</string>
+    <string name="button_newGame">Add new game</string>
+    <string name="SP_main">general</string>
+    <string name="SP_games">games</string>
+    <string name="def_name">Default player names</string>
+    <string name="hint_defname">Insert name</string>
+</resources>

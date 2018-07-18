@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layoutDirection="rtl"
+    android:layout_alignParentRight="true">
+
+    <ImageView
+        android:id="@+id/treedoneIcon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/treeround"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:text="12"
+        android:textSize="30pt"
+        android:gravity="center"
+
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/teamOneText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+
+        android:text="Didier + Laurent"
+
+        app:layout_constraintBottom_toBottomOf="@+id/teamOneScore"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/teamOneScore"
+        app:layout_constraintTop_toTopOf="@id/teamOneScore"
+
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+
+        android:textSize="8pt"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/teamTwoText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+
+        android:text="Frans + Joelle"
+
+        app:layout_constraintBottom_toBottomOf="@+id/teamTwoScore"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/teamTwoScore"
+        app:layout_constraintTop_toTopOf="@+id/teamTwoScore"
+
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+
+        android:textSize="8pt"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/teamOneScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+
+        android:text="269"
+
+        app:layout_constraintBottom_toBottomOf="@+id/treedoneIcon"
+        app:layout_constraintLeft_toRightOf="@+id/teamOneText"
+        app:layout_constraintRight_toLeftOf="@+id/treedoneIcon"
+        app:layout_constraintTop_toTopOf="@+id/treedoneIcon"
+        app:layout_constraintVertical_bias="0.2"
+
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+
+        android:textSize="12pt"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/teamTwoScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+
+        android:text="512"
+
+        app:layout_constraintBottom_toBottomOf="@+id/treedoneIcon"
+        app:layout_constraintLeft_toRightOf="@+id/teamTwoText"
+        app:layout_constraintRight_toLeftOf="@+id/treedoneIcon"
+        app:layout_constraintTop_toTopOf="@+id/treedoneIcon"
+        app:layout_constraintVertical_bias="0.8"
+
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+
+        android:textSize="12pt"
+        android:textColor="#000000" />
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingsActivity">
+
+
+    <TextView
+        android:id="@+id/default_names"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/def_name"
+
+        android:padding="10dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0" />
+
+    <EditText
+        android:id="@+id/defp1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+
+        android:hint="@string/hint_defname"
+        android:inputType="textPersonName"
+
+        android:text="Name"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/defp2"
+        app:layout_constraintTop_toBottomOf="@+id/default_names"
+        app:layout_constraintVertical_bias="0" />
+
+    <EditText
+        android:id="@+id/defp2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+
+        android:hint="@string/hint_defname"
+        android:inputType="textPersonName"
+
+        android:text="Name"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/defp1"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/default_names"
+        app:layout_constraintVertical_bias="0" />
+
+    <EditText
+        android:id="@+id/defp3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+
+        android:hint="@string/hint_defname"
+        android:inputType="textPersonName"
+
+        android:text="Name"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/defp4"
+        app:layout_constraintTop_toBottomOf="@+id/defp1"
+        app:layout_constraintVertical_bias="0" />
+
+    <EditText
+        android:id="@+id/defp4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+
+        android:hint="@string/hint_defname"
+        android:inputType="textPersonName"
+
+        android:text="Name"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/defp3"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/defp2"
+        app:layout_constraintVertical_bias="0" />
+
+</android.support.constraint.ConstraintLayout>
