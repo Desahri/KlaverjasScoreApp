@@ -1,9 +1,7 @@
 package com.example.s158270.klaverjasscoreapp;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
 
 import general_sp_handler.SPHandler;
@@ -12,6 +10,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     EditText etdp1, etdp2, etdp3, etdp4;
     SPHandler sph;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

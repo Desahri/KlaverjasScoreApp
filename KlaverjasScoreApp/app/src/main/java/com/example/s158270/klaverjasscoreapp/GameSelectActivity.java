@@ -1,33 +1,25 @@
 package com.example.s158270.klaverjasscoreapp;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import java.io.File;
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 
 import general_sp_handler.GameState;
@@ -56,13 +48,13 @@ public class GameSelectActivity extends AppCompatActivity {
         doneList = new ArrayList<>();
         fillLists();
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        gamesList = (ListView) findViewById(R.id.gamesList);
+        gamesList = findViewById(R.id.gamesList);
         updateAdapter();
 
-        gamesList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        gamesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -87,7 +79,7 @@ public class GameSelectActivity extends AppCompatActivity {
             }
         });
 
-        Button addGame = (Button) findViewById(R.id.newGameButton);
+        Button addGame = findViewById(R.id.newGameButton);
         addGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,6 +120,9 @@ public class GameSelectActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * updates the adapter and changes the listview such that it represents the current state
+     */
     void updateAdapter() {
         String[] names;
         Boolean[] done;
@@ -141,6 +136,10 @@ public class GameSelectActivity extends AppCompatActivity {
         gamesList.setAdapter(gsa);
     }
 
+    /**
+     * @param name game name to be checked
+     * @return whether the game name already exists in the list of all game names
+     */
     boolean isDuplicateName(String name) {
         for (String s : nameList) {
             if (s.equals(name)) {
@@ -150,13 +149,20 @@ public class GameSelectActivity extends AppCompatActivity {
         return false;
     }
 
+    /**
+     * fill the gamename and gamedone lists using the shared preferences handler
+     */
     void fillLists() {
-        for(GameState gs : sph.gamesSPToList()) {
+        for (GameState gs : sph.gamesSPToList()) {
             nameList.add(gs.getGameName());
             doneList.add(gs.getIsDone());
         }
     }
 
+    /**
+     * @param gameName gamename to be checked on syntax
+     * @return whether gamename is valid
+     */
     boolean isValidGameName(String gameName) {
         return !gameName.replaceAll(" ", "").equals("") &&
                 !gameName.contains(String.valueOf('_')) &&
@@ -164,6 +170,11 @@ public class GameSelectActivity extends AppCompatActivity {
                 !isDuplicateName(gameName);
     }
 
+    /**
+     * creates and returns an alert dialog for creating a new game
+     *
+     * @return the alert dialog
+     */
     AlertDialog.Builder getNewGameDialogBuilder() {
         AlertDialog.Builder builder = new AlertDialog.Builder(GameSelectActivity.this);
         builder.setTitle("New game name");
@@ -206,6 +217,12 @@ public class GameSelectActivity extends AppCompatActivity {
         return builder;
     }
 
+    /**
+     * creates and returns an alert dialog for choosing the 4 player names of a specific game
+     *
+     * @param spGameName name of the specific game
+     * @return the alert dialog
+     */
     AlertDialog.Builder getSelectPlayerDialogBuilder(final String spGameName) {
         AlertDialog.Builder builder = new AlertDialog.Builder(GameSelectActivity.this);
         builder.setTitle("Type 4 player names");
@@ -221,13 +238,13 @@ public class GameSelectActivity extends AppCompatActivity {
         LinearLayout layout = new LinearLayout(GameSelectActivity.this);
         layout.setOrientation(LinearLayout.VERTICAL);
 
-        for(int i = 0; i < 4; i++) {
+        for (int i = 0; i < 4; i++) {
             inputs[i].setInputType(InputType.TYPE_CLASS_TEXT);
             inputs[i].setHint(getString(R.string.hint_defname));
             if (i % 2 == 0) {
                 inputs[i].setBackgroundColor(Color.LTGRAY);
             } else {
-                inputs[i].setBackgroundColor(Color.rgb(180,180,180));
+                inputs[i].setBackgroundColor(Color.rgb(180, 180, 180));
             }
             inputs[i].setText(defPlayers[i]);
             layout.addView(inputs[i]);
@@ -278,6 +295,12 @@ public class GameSelectActivity extends AppCompatActivity {
         return builder;
     }
 
+    /**
+     * creates and returns an alert dialog for deleting a game
+     *
+     * @param position location in listview of the specific game
+     * @return the alert dialog
+     */
     AlertDialog.Builder getDeleteGameDialogBuilder(final int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(GameSelectActivity.this);
         builder.setTitle("Are you sure you want to delete:\n" + nameList.get(position));
@@ -302,6 +325,11 @@ public class GameSelectActivity extends AppCompatActivity {
         return builder;
     }
 
+    /**
+     * creates and returns an alert dialog for resetting all games and settings
+     *
+     * @return the alert dialog
+     */
     AlertDialog.Builder getResetDialogBuilder() {
         AlertDialog.Builder builder = new AlertDialog.Builder(GameSelectActivity.this);
         builder.setTitle("Are you sure you want to reset?\nThis will delete all games and settings");

@@ -9,10 +9,16 @@ public class GameState {
         this.isDone = done;
     }
 
+    /**
+     * @return the game name of this object
+     */
     public String getGameName() {
         return gameName;
     }
 
+    /**
+     * @return whether the game of this object is done
+     */
     public Boolean getIsDone() {
         return isDone;
     }
