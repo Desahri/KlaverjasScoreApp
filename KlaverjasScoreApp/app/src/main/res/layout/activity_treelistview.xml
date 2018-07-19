@@ -105,4 +105,11 @@
         android:textSize="12pt"
         android:textColor="#000000" />
 
+    <View
+        android:layout_width="2dp"
+        android:layout_height="100dp"
+        android:background="#000000"
+
+        app:layout_constraintRight_toLeftOf="@+id/treedoneIcon" />
+
 </android.support.constraint.ConstraintLayout>

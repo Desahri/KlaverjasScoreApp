@@ -1,4 +1,4 @@
-package com.example.s158270.klaverjasscoreapp;
+package customAdapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.s158270.klaverjasscoreapp.R;
 
 public class GameSelectAdapter extends BaseAdapter {
 

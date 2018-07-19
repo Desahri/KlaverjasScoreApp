@@ -1,4 +1,4 @@
-package general_sp_handler;
+package generalSPHandler;
 
 public class GameState {
     private final String gameName;

@@ -1,4 +1,4 @@
-package general_sp_handler;
+package generalSPHandler;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class SPHandler {
     private Context c;
@@ -119,6 +120,10 @@ public class SPHandler {
 
     //game specific sp files methods ---------------------------------------------------------------
 
+    private SharedPreferences getGameSP(String gameName) {
+        return c.getSharedPreferences(gameSPStart + "_" + gameName, Context.MODE_PRIVATE);
+    }
+
     /**
      * sets the done state of a specific game
      *
@@ -126,7 +131,7 @@ public class SPHandler {
      * @param init     whether a game is done or not
      */
     public void setGameIsInitialized(String gameName, boolean init) {
-        SharedPreferences sp = c.getSharedPreferences(gameSPStart + "_" + gameName, Context.MODE_PRIVATE);
+        SharedPreferences sp = getGameSP(gameName);
         SharedPreferences.Editor editor = sp.edit();
         editor.putBoolean("init", true);
         editor.apply();
@@ -137,7 +142,7 @@ public class SPHandler {
      * @return the done state of a specific game
      */
     public boolean getGameIsInitialized(String gameName) {
-        SharedPreferences sp = c.getSharedPreferences(gameSPStart + "_" + gameName, Context.MODE_PRIVATE);
+        SharedPreferences sp = getGameSP(gameName);
         return sp.getBoolean("init", false);
     }
 
@@ -151,7 +156,7 @@ public class SPHandler {
         if (players.length != 4) {
             return;
         }
-        SharedPreferences sp = c.getSharedPreferences(gameSPStart + "_" + gameName, Context.MODE_PRIVATE);
+        SharedPreferences sp = getGameSP(gameName);
         SharedPreferences.Editor editor = sp.edit();
         for (int i = 0; i < 4; i++) {
             editor.putString("p" + (i + 1), players[i]);
@@ -163,8 +168,76 @@ public class SPHandler {
      * @param gameName name of a specific game
      * @return player names of a specific game
      */
-    public boolean getGamePlayers(String gameName) {
-        SharedPreferences sp = c.getSharedPreferences(gameSPStart + "_" + gameName, Context.MODE_PRIVATE);
-        return sp.getBoolean("init", false);
+    public String[] getGamePlayers(String gameName) {
+        SharedPreferences sp = getGameSP(gameName);
+        String[] players = {
+                sp.getString("p1", ""),
+                sp.getString("p2", ""),
+                sp.getString("p3", ""),
+                sp.getString("p4", ""),
+        };
+        return players;
+    }
+
+    /**
+     * @param gameName name of a specific game
+     * @param tree     the tree for which to set the score
+     * @param scores   scores of both teams
+     */
+    public void setTreeScore(String gameName, int tree, int[] scores) {
+        if (scores.length != 2 || tree < 0 || tree > 2) {
+            return;
+        }
+        SharedPreferences sp = getGameSP(gameName);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putInt("t" + (tree + 1) + "s" + 1, scores[0]);
+        editor.putInt("t" + (tree + 1) + "s" + 2, scores[1]);
+        editor.commit();
+    }
+
+    /**
+     * @param gameName name of a specific game
+     * @return the score of both teams in all trees (represented in a 2d array)
+     */
+    public int[][] getTreeScores(String gameName) {
+        int[][] treeScores = new int[3][2];
+        SharedPreferences sp = getGameSP(gameName);
+        for (int tree = 0; tree < 3; tree++) {
+            for (int team = 0; team < 2; team++) {
+                treeScores[tree][team] = sp.getInt("t" + (tree + 1) + "s" + (team + 1), 0);
+            }
+        }
+        return treeScores;
+    }
+
+    public int[] getGamePlayerScores(String gameName) {
+        int[][] treeScores = getTreeScores(gameName);
+        int[] scores = {
+                treeScores[0][0] + treeScores[1][0] + treeScores[2][0],
+                treeScores[0][0] + treeScores[1][1] + treeScores[2][1],
+                treeScores[0][1] + treeScores[1][0] + treeScores[2][1],
+                treeScores[0][1] + treeScores[1][1] + treeScores[2][0]
+        };
+        return scores;
+    }
+
+    public void setCurrentRound(String gameName, int tree, int round) {
+        if (tree < 0 || tree > 2 || round < 0 || round > 16) {
+            return;
+        }
+        SharedPreferences sp = getGameSP(gameName);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putInt("t" + (tree + 1), round);
+        editor.commit();
+    }
+
+    public int[] getCurrentRounds(String gameName) {
+        SharedPreferences sp = getGameSP(gameName);
+        int[] rounds = {
+                sp.getInt("t1", 1),
+                sp.getInt("t2", 1),
+                sp.getInt("t3", 1)
+        };
+        return rounds;
     }
 }

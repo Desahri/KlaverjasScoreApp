@@ -22,8 +22,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import general_sp_handler.GameState;
-import general_sp_handler.SPHandler;
+import customAdapters.GameSelectAdapter;
+import generalSPHandler.GameState;
+import generalSPHandler.SPHandler;
 
 public class GameSelectActivity extends AppCompatActivity {
 
@@ -61,12 +62,9 @@ public class GameSelectActivity extends AppCompatActivity {
                 if (!sph.getGameIsInitialized(nameList.get(position))) {
                     getSelectPlayerDialogBuilder(nameList.get(position)).show();
                 } else {
-                    //TODO open tree activity
-                    /*
-                    Intent i = new Intent(GameSelectActivity.this, TreeSelectActivity.class)
-                    i.putExtra("spName", spGameName);
+                    Intent i = new Intent(GameSelectActivity.this, TreeSelectActivity.class);
+                    i.putExtra("spGameName", nameList.get(position));
                     startActivity(i);
-                    */
                 }
             }
         });
@@ -276,12 +274,10 @@ public class GameSelectActivity extends AppCompatActivity {
                 if (validNames) {
                     sph.setGameIsInitialized(spGameName, false);
                     sph.setGamePlayers(spGameName, pNames);
-                    //TODO open tree activity
-                    /*
-                    Intent i = new Intent(GameSelectActivity.this, TreeSelectActivity.class)
-                    i.putExtra("spName", spGameName);
+
+                    Intent i = new Intent(GameSelectActivity.this, TreeSelectActivity.class);
+                    i.putExtra("spGameName", spGameName);
                     startActivity(i);
-                    */
                 }
             }
         });

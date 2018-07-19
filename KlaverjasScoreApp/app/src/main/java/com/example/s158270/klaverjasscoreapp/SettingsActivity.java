@@ -2,9 +2,10 @@ package com.example.s158270.klaverjasscoreapp;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.widget.EditText;
 
-import general_sp_handler.SPHandler;
+import generalSPHandler.SPHandler;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -15,6 +16,10 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         sph = new SPHandler(
                 SettingsActivity.this,
@@ -49,5 +54,16 @@ public class SettingsActivity extends AppCompatActivity {
                 etdp4.getText().toString()
         };
         sph.setDefaultPlayers(players);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
