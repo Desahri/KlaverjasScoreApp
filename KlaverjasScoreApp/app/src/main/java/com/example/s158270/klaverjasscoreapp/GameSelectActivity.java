@@ -87,6 +87,21 @@ public class GameSelectActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        for (int i = 0; i < nameList.size(); i++) {
+            boolean isDone = true;
+            for (int j = 0; j < 3; j++) {
+                if (sph.getCurrentRounds(nameList.get(i))[j] != 0) {
+                    isDone = false;
+                }
+            }
+            doneList.set(i, isDone);
+        }
+        updateAdapter();
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
         sph.listToGamesSP(nameList, doneList);

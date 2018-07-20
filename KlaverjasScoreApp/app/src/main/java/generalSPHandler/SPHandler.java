@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class SPHandler {
     private Context c;
@@ -239,5 +238,72 @@ public class SPHandler {
                 sp.getInt("t3", 1)
         };
         return rounds;
+    }
+
+    public void setRoundScore(String gameName, int tree, int round, int t1Score, boolean t1NatPit, int t1Roem, int t2Roem) {
+        SharedPreferences sp = getGameSP(gameName);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("t" + (tree + 1) + "r" + (round + 1),
+                "" + t1Score + "_" +
+                        (162 - t1Score) + "_" +
+                        t1NatPit + "_" +
+                        t1Roem + "_" +
+                        t2Roem
+        );
+        editor.commit();
+        int totalT1 = 0;
+        int totalT2 = 0;
+        for (int i = 0; i < 16; i++) {
+            totalT1 += (getRoundScoresRoem(gameName, tree, i)[0] + getRoundScoresRoem(gameName, tree, i)[2]);
+            totalT2 += (getRoundScoresRoem(gameName, tree, i)[1] + getRoundScoresRoem(gameName, tree, i)[3]);
+        }
+        int[] scores = {
+                totalT1,
+                totalT2
+        };
+        setTreeScore(gameName, tree, scores);
+    }
+
+    private String[] getRoundInfo(String gameName, int tree, int round) {
+        SharedPreferences sp = getGameSP(gameName);
+        return sp.getString("t" + (tree + 1) + "r" + (round + 1), "0_0_false_0_0").split("_");
+    }
+
+    public int[] getRoundScoresRoem(String gameName, int tree, int round) {
+        String[] info = getRoundInfo(gameName, tree, round);
+        int[] points = {
+                Integer.parseInt(info[0]),
+                Integer.parseInt(info[1]),
+                Integer.parseInt(info[3]),
+                Integer.parseInt(info[4])
+        };
+        return points;
+    }
+
+    public int[][] getTreeScore(String gameName, int tree) {
+        int[][] r = new int[16][2];
+        for (int i = 0; i < 16; i++) {
+            r[i][0] = getRoundScoresRoem(gameName, tree, i)[0];
+            r[i][1] = getRoundScoresRoem(gameName, tree, i)[1];
+            ;
+        }
+        return r;
+    }
+
+    public int[][] getTreeRoems(String gameName, int tree) {
+        int[][] r = new int[16][2];
+        for (int i = 0; i < 16; i++) {
+            r[i][0] = getRoundScoresRoem(gameName, tree, i)[2];
+            r[i][1] = getRoundScoresRoem(gameName, tree, i)[3];
+        }
+        return r;
+    }
+
+    public boolean[] getRoundsTeam1NatPit(String gameName, int tree) {
+        boolean[] r = new boolean[16];
+        for (int i = 0; i < 16; i++) {
+            r[i] = Boolean.parseBoolean(getRoundInfo(gameName, tree, i)[2]);
+        }
+        return r;
     }
 }

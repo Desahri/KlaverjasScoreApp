@@ -19,6 +19,8 @@ public class TreeSelectActivity extends AppCompatActivity {
     ListView treeList;
     TreeSelectAdapter tsa;
 
+    TextView[] treeListPlayerScores;
+
     SPHandler sph;
 
     //testing stuff
@@ -43,20 +45,18 @@ public class TreeSelectActivity extends AppCompatActivity {
                 getString(R.string.SP_games));
 
         names = sph.getGamePlayers(gameName);
-        curRounds = sph.getCurrentRounds(gameName);
-        scores = sph.getTreeScores(gameName);
 
         treeList = findViewById(R.id.treelist);
 
         treeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                /*
+
                 Intent i = new Intent(TreeSelectActivity.this, RoundSelectActivity.class);
-                i.putExtra("spGameName", nameList.get(position));
+                i.putExtra("spGameName", gameName);
                 i.putExtra("spGameTree", position);
                 startActivity(i);
-                */
+
             }
         });
 
@@ -71,27 +71,32 @@ public class TreeSelectActivity extends AppCompatActivity {
                 treeListPlayer4
         };
 
+        for (int i = 0; i < 4; i++) {
+            treeListPlayers[i].setText(names[i]);
+        }
+
         TextView treeListPlayer1Score = findViewById(R.id.treelistPlayer1Score);
         TextView treeListPlayer2Score = findViewById(R.id.treelistPlayer2Score);
         TextView treeListPlayer3Score = findViewById(R.id.treelistPlayer3Score);
         TextView treeListPlayer4Score = findViewById(R.id.treelistPlayer4Score);
-        TextView[] treeListPlayerScores = {
+        TextView[] tv = {
                 treeListPlayer1Score,
                 treeListPlayer2Score,
                 treeListPlayer3Score,
                 treeListPlayer4Score
         };
-
-        int[] totalScores = sph.getGamePlayerScores(gameName);
-        for (int i = 0; i < 4; i++) {
-            treeListPlayers[i].setText(names[i]);
-            treeListPlayerScores[i].setText("" + totalScores[i]);
-        }
+        treeListPlayerScores = tv;
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        curRounds = sph.getCurrentRounds(gameName);
+        scores = sph.getTreeScores(gameName);
+        int[] totalScores = sph.getGamePlayerScores(gameName);
+        for (int i = 0; i < 4; i++) {
+            treeListPlayerScores[i].setText("" + totalScores[i]);
+        }
         updateAdapter();
     }
 
@@ -107,8 +112,6 @@ public class TreeSelectActivity extends AppCompatActivity {
     }
 
     private void updateAdapter() {
-        //TODO use stuff in gamestructure to (re)initialize adapter
-
         tsa = new TreeSelectAdapter(this, names, curRounds, scores);
         treeList.setAdapter(tsa);
     }
