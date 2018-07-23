@@ -79,4 +79,11 @@ public class TreeSelectAdapter extends BaseAdapter {
 
         return convertView;
     }
+
+    public void updateValues(String[] names, int[] curRounds, int[][] scores) {
+        this.names = names;
+        this.curRounds = curRounds;
+        this.scores = scores;
+        this.notifyDataSetChanged();
+    }
 }

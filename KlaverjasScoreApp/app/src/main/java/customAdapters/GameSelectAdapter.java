@@ -51,4 +51,10 @@ public class GameSelectAdapter extends BaseAdapter {
 
         return convertView;
     }
+
+    public void updateValues(String[] gameNames, Boolean[] done) {
+        this.names = gameNames;
+        this.done = done;
+        this.notifyDataSetChanged();
+    }
 }

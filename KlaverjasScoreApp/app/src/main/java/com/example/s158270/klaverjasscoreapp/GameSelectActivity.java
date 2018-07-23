@@ -89,15 +89,7 @@ public class GameSelectActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        for (int i = 0; i < nameList.size(); i++) {
-            boolean isDone = true;
-            for (int j = 0; j < 3; j++) {
-                if (sph.getCurrentRounds(nameList.get(i))[j] != 0) {
-                    isDone = false;
-                }
-            }
-            doneList.set(i, isDone);
-        }
+        setDoneList();
         updateAdapter();
     }
 
@@ -116,9 +108,11 @@ public class GameSelectActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+        /*
+         * Handle action bar item clicks here. The action bar will
+         * automatically handle clicks on the Home/Up button, so long
+         * as you specify a parent activity in AndroidManifest.xml.
+         */
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -136,7 +130,7 @@ public class GameSelectActivity extends AppCompatActivity {
     /**
      * updates the adapter and changes the listview such that it represents the current state
      */
-    void updateAdapter() {
+    private void updateAdapter() {
         String[] names;
         Boolean[] done;
 
@@ -145,15 +139,20 @@ public class GameSelectActivity extends AppCompatActivity {
         done = new Boolean[doneList.size()];
         doneList.toArray(done);
 
-        gsa = new GameSelectAdapter(this, names, done);
-        gamesList.setAdapter(gsa);
+
+        if (gsa == null) {
+            gsa = new GameSelectAdapter(this, names, done);
+            gamesList.setAdapter(gsa);
+        } else {
+            gsa.updateValues(names, done);
+        }
     }
 
     /**
      * @param name game name to be checked
      * @return whether the game name already exists in the list of all game names
      */
-    boolean isDuplicateName(String name) {
+    private boolean isDuplicateName(String name) {
         for (String s : nameList) {
             if (s.equals(name)) {
                 return true;
@@ -165,7 +164,7 @@ public class GameSelectActivity extends AppCompatActivity {
     /**
      * fill the gamename and gamedone lists using the shared preferences handler
      */
-    void fillLists() {
+    private void fillLists() {
         for (GameState gs : sph.gamesSPToList()) {
             nameList.add(gs.getGameName());
             doneList.add(gs.getIsDone());
@@ -176,11 +175,27 @@ public class GameSelectActivity extends AppCompatActivity {
      * @param gameName gamename to be checked on syntax
      * @return whether gamename is valid
      */
-    boolean isValidGameName(String gameName) {
+    private boolean isValidGameName(String gameName) {
         return !gameName.replaceAll(" ", "").equals("") &&
                 !gameName.contains(String.valueOf('_')) &&
                 !gameName.contains(String.valueOf('/')) &&
                 !isDuplicateName(gameName);
+    }
+
+    /**
+     * checks for each game file is all trees are done and
+     * sets the isDone for the specific game accordingly
+     */
+    private void setDoneList() {
+        for (int i = 0; i < nameList.size(); i++) {
+            boolean isDone = true;
+            for (int j = 0; j < 3; j++) {
+                if (sph.getCurrentRounds(nameList.get(i))[j] != 0) {
+                    isDone = false;
+                }
+            }
+            doneList.set(i, isDone);
+        }
     }
 
     /**

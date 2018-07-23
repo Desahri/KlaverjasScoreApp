@@ -91,12 +91,7 @@ public class TreeSelectActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        curRounds = sph.getCurrentRounds(gameName);
-        scores = sph.getTreeScores(gameName);
-        int[] totalScores = sph.getGamePlayerScores(gameName);
-        for (int i = 0; i < 4; i++) {
-            treeListPlayerScores[i].setText("" + totalScores[i]);
-        }
+        setArrays();
         updateAdapter();
     }
 
@@ -112,7 +107,20 @@ public class TreeSelectActivity extends AppCompatActivity {
     }
 
     private void updateAdapter() {
-        tsa = new TreeSelectAdapter(this, names, curRounds, scores);
-        treeList.setAdapter(tsa);
+        if (tsa == null) {
+            tsa = new TreeSelectAdapter(this, names, curRounds, scores);
+            treeList.setAdapter(tsa);
+        } else {
+            tsa.updateValues(names, curRounds, scores);
+        }
+    }
+
+    private void setArrays() {
+        curRounds = sph.getCurrentRounds(gameName);
+        scores = sph.getTreeScores(gameName);
+        int[] totalScores = sph.getGamePlayerScores(gameName);
+        for (int i = 0; i < 4; i++) {
+            treeListPlayerScores[i].setText("" + totalScores[i]);
+        }
     }
 }

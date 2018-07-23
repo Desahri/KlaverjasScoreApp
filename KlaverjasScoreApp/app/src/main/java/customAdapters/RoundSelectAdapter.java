@@ -87,4 +87,12 @@ public class RoundSelectAdapter extends BaseAdapter {
         }
         return convertView;
     }
+
+    public void updateValues(int[][] roems, int[][] scores, boolean[] t1NatPit, int currentRound) {
+        this.roems = roems;
+        this.scores = scores;
+        this.t1NatPit = t1NatPit;
+        this.curRound = currentRound;
+        this.notifyDataSetChanged();
+    }
 }

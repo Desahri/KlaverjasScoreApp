@@ -1,5 +1,6 @@
 package com.example.s158270.klaverjasscoreapp;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -57,7 +58,7 @@ public class RoundSelectActivity extends AppCompatActivity {
                 Random r = new Random();
                 int[] roemsSample = {0, 20, 40, 50, 60, 70, 80, 90};
                 sph.setRoundScore(gameName, tree, position,
-                        Math.min(r.nextInt(200), 162),
+                        Math.max(Math.min(r.nextInt(200) - 19, 162), 0),
                         r.nextBoolean(),
                         roemsSample[r.nextInt(roemsSample.length)],
                         roemsSample[r.nextInt(roemsSample.length)]);
@@ -72,7 +73,11 @@ public class RoundSelectActivity extends AppCompatActivity {
 
                 updateAdapter();
                 updateTotals();
-                roundList.setSelection(position + 1 - 3);
+                if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    roundList.setSelection(curRound - 1 - 1);
+                } else {
+                    roundList.setSelection(curRound - 1 - 3);
+                }
             }
         });
 
@@ -125,7 +130,11 @@ public class RoundSelectActivity extends AppCompatActivity {
         t1NatPit = sph.getRoundsTeam1NatPit(gameName, tree);
         updateAdapter();
         updateTotals();
-        roundList.setSelection(curRound - 1 - 3);
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            roundList.setSelection(curRound - 1 - 1);
+        } else {
+            roundList.setSelection(curRound - 1 - 3);
+        }
     }
 
     @Override
@@ -140,8 +149,12 @@ public class RoundSelectActivity extends AppCompatActivity {
     }
 
     private void updateAdapter() {
-        rsa = new RoundSelectAdapter(this, roems, scores, t1NatPit, curRound);
-        roundList.setAdapter(rsa);
+        if (rsa == null) {
+            rsa = new RoundSelectAdapter(this, roems, scores, t1NatPit, curRound);
+            roundList.setAdapter(rsa);
+        } else {
+            rsa.updateValues(roems, scores, t1NatPit, curRound);
+        }
     }
 
     private void updateTotals() {
