@@ -18,6 +18,8 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
+                                      <entry key="backgroundAssetType" value="COLOR" />
+                                      <entry key="backgroundColor" value="a60001" />
                                       <entry key="foregroundImage" value="C:\Users\s158270\Pictures\20161018_213015.jpg" />
                                     </map>
                                   </option>
