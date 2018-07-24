@@ -41,8 +41,8 @@ public class GameSelectAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = inflter.inflate(R.layout.activity_gameslistview, null);
 
-        TextView nameText = (TextView) convertView.findViewById(R.id.gamenametext);
-        ImageView doneSign = (ImageView) convertView.findViewById(R.id.gamedoneIcon);
+        TextView nameText = convertView.findViewById(R.id.gamenametext);
+        ImageView doneSign = convertView.findViewById(R.id.gamedoneIcon);
 
         nameText.setText(names[position]);
         if (done[position]) {

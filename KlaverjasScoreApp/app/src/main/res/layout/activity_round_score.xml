@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RoundScoreActivity"
+
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <View
+        android:id="@+id/roundScoreMiddle"
+        android:layout_width="2dp"
+        android:layout_height="0dp"
+        android:background="#000000"
+
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/roundScoreResetScores" />
+
+    <TextView
+        android:id="@+id/roundScoreT1P1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/roundScoreMiddle"
+
+        android:textSize="10pt" />
+
+    <TextView
+        android:id="@+id/roundScoreT1P2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+
+        app:layout_constraintTop_toBottomOf="@+id/roundScoreT1P1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/roundScoreMiddle"
+
+        android:textSize="10pt" />
+
+    <TextView
+        android:id="@+id/roundScoreT2P1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/roundScoreMiddle"
+        app:layout_constraintRight_toRightOf="parent"
+
+        android:textSize="10pt" />
+
+    <TextView
+        android:id="@+id/roundScoreT2P2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+
+        app:layout_constraintTop_toBottomOf="@+id/roundScoreT2P1"
+        app:layout_constraintLeft_toRightOf="@+id/roundScoreMiddle"
+        app:layout_constraintRight_toRightOf="parent"
+
+        android:textSize="10pt" />
+
+    <!-- a horizontal line under the names -->
+    <View
+        android:id="@+id/roundScoreLineTeams"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#000000"
+
+        app:layout_constraintTop_toBottomOf="@+id/roundScoreT2P2" />
+
+    <EditText
+        android:id="@+id/roundScorePointsT1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:inputType="number"
+
+        app:layout_constraintTop_toBottomOf="@+id/roundScoreLineTeams"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/roundScoreRoemT1"
+
+        android:textSize="25pt" />
+
+    <TextView
+        android:id="@+id/roundScoreRoemT1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:maxLength="3"
+
+        app:layout_constraintTop_toTopOf="@+id/roundScorePointsT1"
+        app:layout_constraintBottom_toBottomOf="@+id/roundScorePointsT1"
+        app:layout_constraintLeft_toRightOf="@+id/roundScorePointsT1"
+        app:layout_constraintRight_toLeftOf="@+id/roundScoreMiddle"
+        app:layout_constraintVertical_bias="0.8"
+
+        android:textSize="8pt" />
+
+    <EditText
+        android:id="@+id/roundScorePointsT2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:inputType="number"
+
+        app:layout_constraintTop_toBottomOf="@+id/roundScoreLineTeams"
+        app:layout_constraintLeft_toRightOf="@+id/roundScoreMiddle"
+        app:layout_constraintRight_toLeftOf="@+id/roundScoreRoemT2"
+
+        android:textSize="25pt" />
+
+    <TextView
+        android:id="@+id/roundScoreRoemT2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:maxLength="3"
+
+        app:layout_constraintTop_toTopOf="@+id/roundScorePointsT2"
+        app:layout_constraintBottom_toBottomOf="@+id/roundScorePointsT2"
+        app:layout_constraintLeft_toRightOf="@+id/roundScorePointsT2"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintVertical_bias="0.8"
+
+        android:textSize="8pt" />
+
+    <!-- Team 1 buttons -->
+    <Button
+        android:id="@+id/roundScoreT1Roem20"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+
+        app:layout_constraintTop_toBottomOf="@+id/roundScorePointsT1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/roundScoreT1Roem50"
+        app:layout_constraintBottom_toTopOf="@+id/roundScoreT2Roem0"
+
+        android:textSize="13pt" />
+
+    <Button
+        android:id="@+id/roundScoreT1Roem50"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+
+        app:layout_constraintTop_toBottomOf="@+id/roundScorePointsT1"
+        app:layout_constraintLeft_toRightOf="@+id/roundScoreT1Roem20"
+        app:layout_constraintRight_toLeftOf="@+id/roundScoreMiddle"
+        app:layout_constraintBottom_toTopOf="@+id/roundScoreT2Roem0"
+
+        android:textSize="13pt" />
+
+    <Button
+        android:id="@+id/roundScoreT1Roem0"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+
+        app:layout_constraintTop_toBottomOf="@+id/roundScoreT1Roem20"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/roundScoreMiddle"
+        app:layout_constraintBottom_toTopOf="@+id/roundScoreLineRoem"
+
+
+        android:textSize="8pt" />
+
+    <View
+        android:id="@+id/roundScoreLineRoem"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#000000"
+
+        app:layout_constraintTop_toBottomOf="@+id/roundScorePointsT1"
+        app:layout_constraintBottom_toTopOf="@+id/roundScoreResetScores" />
+
+    <Button
+        android:id="@+id/roundScoreT1Nat"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toBottomOf="@+id/roundScoreLineRoem"
+        app:layout_constraintBottom_toTopOf="@+id/roundScoreT1Pit"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/roundScoreMiddle"
+
+        android:textSize="20pt"
+        android:text="NAT" />
+
+    <Button
+        android:id="@+id/roundScoreT1Pit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toBottomOf="@+id/roundScoreT1Nat"
+        app:layout_constraintBottom_toTopOf="@+id/roundScoreResetScores"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/roundScoreMiddle"
+
+        android:textSize="20pt"
+        android:text="PIT" />
+
+    <!-- Team 2 buttons -->
+    <Button
+        android:id="@+id/roundScoreT2Roem20"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+
+        app:layout_constraintTop_toBottomOf="@+id/roundScorePointsT2"
+        app:layout_constraintLeft_toRightOf="@+id/roundScoreMiddle"
+        app:layout_constraintRight_toLeftOf="@+id/roundScoreT2Roem50"
+        app:layout_constraintBottom_toTopOf="@+id/roundScoreT2Roem0"
+
+        android:textSize="13pt"
+        android:text="+20" />
+
+    <Button
+        android:id="@+id/roundScoreT2Roem50"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+
+        app:layout_constraintTop_toBottomOf="@+id/roundScorePointsT2"
+        app:layout_constraintLeft_toRightOf="@+id/roundScoreT2Roem20"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/roundScoreT2Roem0"
+
+        android:textSize="13pt"
+        android:text="+50" />
+
+    <Button
+        android:id="@+id/roundScoreT2Roem0"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+
+        app:layout_constraintTop_toBottomOf="@+id/roundScoreT2Roem20"
+        app:layout_constraintLeft_toRightOf="@+id/roundScoreMiddle"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/roundScoreLineRoem"
+
+        android:textSize="8pt"
+        android:text="set to 0" />
+
+    <Button
+        android:id="@+id/roundScoreT2Nat"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toBottomOf="@+id/roundScoreLineRoem"
+        app:layout_constraintBottom_toTopOf="@+id/roundScoreT2Pit"
+        app:layout_constraintLeft_toRightOf="@+id/roundScoreMiddle"
+        app:layout_constraintRight_toRightOf="parent"
+
+        android:textSize="20pt"
+        android:text="NAT" />
+
+    <Button
+        android:id="@+id/roundScoreT2Pit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toBottomOf="@+id/roundScoreT2Nat"
+        app:layout_constraintBottom_toTopOf="@+id/roundScoreResetScores"
+        app:layout_constraintLeft_toRightOf="@+id/roundScoreMiddle"
+        app:layout_constraintRight_toRightOf="parent"
+
+        android:textSize="20pt"
+        android:text="PIT" />
+
+    <Button
+        android:id="@+id/roundScoreResetScores"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        android:textSize="8pt"
+        android:text="Reset all scores" />
+
+
+</android.support.constraint.ConstraintLayout>

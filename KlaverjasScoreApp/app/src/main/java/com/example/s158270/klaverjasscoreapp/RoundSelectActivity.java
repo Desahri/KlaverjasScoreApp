@@ -1,5 +1,6 @@
 package com.example.s158270.klaverjasscoreapp;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,8 +9,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import java.util.Random;
 
 import customAdapters.RoundSelectAdapter;
 import generalSPHandler.SPHandler;
@@ -53,9 +52,14 @@ public class RoundSelectActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //TODO go to round activity
+                Intent i = new Intent(RoundSelectActivity.this, RoundScoreActivity.class);
+                i.putExtra("spGameName", gameName);
+                i.putExtra("spGameTree", tree);
+                i.putExtra("spGameRound", position);
+                startActivity(i);
 
                 //TODO remove this
-                Random r = new Random();
+                /*Random r = new Random();
                 int[] roemsSample = {0, 20, 40, 50, 60, 70, 80, 90};
                 sph.setRoundScore(gameName, tree, position,
                         Math.max(Math.min(r.nextInt(200) - 19, 162), 0),
@@ -77,7 +81,7 @@ public class RoundSelectActivity extends AppCompatActivity {
                     roundList.setSelection(curRound - 1 - 1);
                 } else {
                     roundList.setSelection(curRound - 1 - 3);
-                }
+                }*/
             }
         });
 

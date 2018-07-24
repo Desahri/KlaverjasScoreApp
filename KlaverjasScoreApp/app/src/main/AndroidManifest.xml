@@ -21,7 +21,10 @@
         </activity>
         <activity android:name=".SettingsActivity" />
         <activity android:name=".TreeSelectActivity" />
-        <activity android:name=".RoundSelectActivity"></activity>
+        <activity android:name=".RoundSelectActivity" />
+        <activity
+            android:name=".RoundScoreActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

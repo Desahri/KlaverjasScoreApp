@@ -285,7 +285,6 @@ public class SPHandler {
         for (int i = 0; i < 16; i++) {
             r[i][0] = getRoundScoresRoem(gameName, tree, i)[0];
             r[i][1] = getRoundScoresRoem(gameName, tree, i)[1];
-            ;
         }
         return r;
     }

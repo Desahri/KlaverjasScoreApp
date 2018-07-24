@@ -26,10 +26,10 @@ public class SettingsActivity extends AppCompatActivity {
                 getString(R.string.SP_main),
                 getString(R.string.SP_games));
 
-        etdp1 = (EditText) findViewById(R.id.defp1);
-        etdp2 = (EditText) findViewById(R.id.defp2);
-        etdp3 = (EditText) findViewById(R.id.defp3);
-        etdp4 = (EditText) findViewById(R.id.defp4);
+        etdp1 = findViewById(R.id.defp1);
+        etdp2 = findViewById(R.id.defp2);
+        etdp3 = findViewById(R.id.defp3);
+        etdp4 = findViewById(R.id.defp4);
 
         EditText[] editTexts = {
                 etdp1,

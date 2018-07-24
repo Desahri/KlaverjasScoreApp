@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">KlaverjasScoreApp</string>
+    <string name="app_name">Klaverjas Score App</string>
     <string name="action_settings">Settings</string>
     <string name="action_reset">Reset</string>
     <string name="button_newGame">Add new game</string>

@@ -42,10 +42,7 @@ public class RoundSelectAdapter extends BaseAdapter {
     }
 
     public boolean isEnabled(int position) {
-        if (position + 1 > curRound && curRound != 0) {
-            return false;
-        }
-        return true;
+        return position + 1 <= curRound || curRound == 0;
     }
 
     @Override
