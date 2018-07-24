@@ -51,37 +51,11 @@ public class RoundSelectActivity extends AppCompatActivity {
         roundList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //TODO go to round activity
                 Intent i = new Intent(RoundSelectActivity.this, RoundScoreActivity.class);
                 i.putExtra("spGameName", gameName);
                 i.putExtra("spGameTree", tree);
                 i.putExtra("spGameRound", position);
                 startActivity(i);
-
-                //TODO remove this
-                /*Random r = new Random();
-                int[] roemsSample = {0, 20, 40, 50, 60, 70, 80, 90};
-                sph.setRoundScore(gameName, tree, position,
-                        Math.max(Math.min(r.nextInt(200) - 19, 162), 0),
-                        r.nextBoolean(),
-                        roemsSample[r.nextInt(roemsSample.length)],
-                        roemsSample[r.nextInt(roemsSample.length)]);
-                int nextRound = (position + 2) % 17;
-                if (curRound + 1 == nextRound || (curRound == 16 && nextRound == 0)) {
-                    sph.setCurrentRound(gameName, tree, nextRound);
-                }
-                scores = sph.getTreeScore(gameName, tree);
-                roems = sph.getTreeRoems(gameName, tree);
-                curRound = sph.getCurrentRounds(gameName)[tree];
-                t1NatPit = sph.getRoundsTeam1NatPit(gameName, tree);
-
-                updateAdapter();
-                updateTotals();
-                if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                    roundList.setSelection(curRound - 1 - 1);
-                } else {
-                    roundList.setSelection(curRound - 1 - 3);
-                }*/
             }
         });
 

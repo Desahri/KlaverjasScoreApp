@@ -122,7 +122,6 @@
         app:layout_constraintLeft_toRightOf="@+id/team1Plus"
         app:layout_constraintRight_toLeftOf="@+id/roundteamdivider"
 
-        android:text="Didier"
         android:textSize="10pt" />
 
     <TextView
@@ -135,7 +134,6 @@
         app:layout_constraintLeft_toRightOf="@+id/roundcorner"
         app:layout_constraintRight_toLeftOf="@+id/team1Plus"
 
-        android:text="Laurent"
         android:textSize="10pt" />
 
     <TextView
@@ -161,7 +159,6 @@
         app:layout_constraintLeft_toRightOf="@+id/roundteamdivider"
         app:layout_constraintRight_toLeftOf="@+id/team2Plus"
 
-        android:text="Frans"
         android:textSize="10pt" />
 
     <TextView
@@ -174,7 +171,6 @@
         app:layout_constraintLeft_toRightOf="@+id/team2Plus"
         app:layout_constraintRight_toRightOf="parent"
 
-        android:text="Joelle"
         android:textSize="10pt" />
 
     <TextView

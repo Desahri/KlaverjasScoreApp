@@ -258,13 +258,13 @@ public class RoundScoreActivity extends AppCompatActivity implements View.OnClic
         roemTeam1View.setText("" + roemTeam1);
         roemTeam2View.setText("" + roemTeam2);
         if (scoreTeam1 == 0 && scoreTeam2 != 0 && natPitTeam1) {
-            roemTeam1View.setText("NAT");
+            roemTeam1View.setText(getString(R.string.nat));
         } else if (scoreTeam1 == 0 && scoreTeam2 != 0 && !natPitTeam1) {
-            roemTeam1View.setText("PIT");
+            roemTeam1View.setText(getString(R.string.pit));
         } else if (scoreTeam1 != 0 && scoreTeam2 == 0 && natPitTeam1) {
-            roemTeam2View.setText("PIT");
+            roemTeam2View.setText(getString(R.string.pit));
         } else if (scoreTeam1 != 0 && scoreTeam2 == 0 && !natPitTeam1) {
-            roemTeam2View.setText("NAT");
+            roemTeam2View.setText(getString(R.string.nat));
         }
     }
 
@@ -305,11 +305,11 @@ public class RoundScoreActivity extends AppCompatActivity implements View.OnClic
                 roemTeam1 = 0;
                 natPitTeam1 = true;
                 Snackbar snackbar = Snackbar
-                        .make(findViewById(android.R.id.content), "You are NAT, too bad", Snackbar.LENGTH_LONG);
+                        .make(findViewById(android.R.id.content), getString(R.string.natyes), Snackbar.LENGTH_LONG);
                 snackbar.show();
             } else {
                 Snackbar snackbar = Snackbar
-                        .make(findViewById(android.R.id.content), "You are not NAT, hurray", Snackbar.LENGTH_LONG);
+                        .make(findViewById(android.R.id.content), getString(R.string.natno), Snackbar.LENGTH_LONG);
                 snackbar.show();
             }
         } else if (v == buttons[4][0]) {
@@ -335,11 +335,11 @@ public class RoundScoreActivity extends AppCompatActivity implements View.OnClic
                 roemTeam2 = 0;
                 natPitTeam1 = false;
                 Snackbar snackbar = Snackbar
-                        .make(findViewById(android.R.id.content), "You are NAT, too bad", Snackbar.LENGTH_LONG);
+                        .make(findViewById(android.R.id.content), getString(R.string.natyes), Snackbar.LENGTH_LONG);
                 snackbar.show();
             } else {
                 Snackbar snackbar = Snackbar
-                        .make(findViewById(android.R.id.content), "You are not NAT, hurray", Snackbar.LENGTH_LONG);
+                        .make(findViewById(android.R.id.content), getString(R.string.natno), Snackbar.LENGTH_LONG);
                 snackbar.show();
             }
         } else if (v == buttons[4][1]) {

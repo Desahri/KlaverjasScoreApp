@@ -26,7 +26,6 @@
 
         android:padding="15dp"
 
-        android:text="Didier"
         android:textSize="10pt" />
 
     <TextView
@@ -39,7 +38,6 @@
 
         android:padding="15dp"
 
-        android:text="Laurent"
         android:textSize="10pt" />
 
     <TextView
@@ -52,7 +50,6 @@
 
         android:padding="15dp"
 
-        android:text="Frans"
         android:textSize="10pt" />
 
     <TextView
@@ -65,7 +62,6 @@
 
         android:padding="15dp"
 
-        android:text="Joelle Rothuizen"
         android:textSize="10pt" />
 
     <TextView
@@ -79,7 +75,6 @@
         app:layout_constraintRight_toLeftOf="@id/treeMiddle"
         android:layout_marginRight="10dp"
 
-        android:text="34"
         android:textSize="14pt" />
 
     <TextView
@@ -93,7 +88,6 @@
         app:layout_constraintRight_toLeftOf="@id/treeMiddle"
         android:layout_marginRight="10dp"
 
-        android:text="381"
         android:textSize="14pt" />
 
     <TextView
@@ -107,7 +101,6 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginRight="10dp"
 
-        android:text="4269"
         android:textSize="14pt" />
 
     <TextView
@@ -121,7 +114,6 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginRight="10dp"
 
-        android:text="1"
         android:textSize="14pt" />
 
     <View

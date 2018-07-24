@@ -19,7 +19,6 @@
         android:id="@+id/treeround"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:text="12"
         android:textSize="30pt"
         android:gravity="center"
 
@@ -32,8 +31,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
-
-        android:text="Didier + Laurent"
 
         app:layout_constraintBottom_toBottomOf="@+id/teamOneScore"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -52,8 +49,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="left"
 
-        android:text="Frans + Joelle"
-
         app:layout_constraintBottom_toBottomOf="@+id/teamTwoScore"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/teamTwoScore"
@@ -70,8 +65,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
-
-        android:text="269"
 
         app:layout_constraintBottom_toBottomOf="@+id/treedoneIcon"
         app:layout_constraintLeft_toRightOf="@+id/teamOneText"
@@ -90,8 +83,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
-
-        android:text="512"
 
         app:layout_constraintBottom_toBottomOf="@+id/treedoneIcon"
         app:layout_constraintLeft_toRightOf="@+id/teamTwoText"

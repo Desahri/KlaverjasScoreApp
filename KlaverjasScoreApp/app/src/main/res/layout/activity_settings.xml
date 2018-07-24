@@ -31,7 +31,6 @@
         android:hint="@string/hint_defname"
         android:inputType="textPersonName"
 
-        android:text="Name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/defp2"
@@ -48,7 +47,6 @@
         android:hint="@string/hint_defname"
         android:inputType="textPersonName"
 
-        android:text="Name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/defp1"
         app:layout_constraintRight_toRightOf="parent"
@@ -65,7 +63,6 @@
         android:hint="@string/hint_defname"
         android:inputType="textPersonName"
 
-        android:text="Name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/defp4"
@@ -82,7 +79,6 @@
         android:hint="@string/hint_defname"
         android:inputType="textPersonName"
 
-        android:text="Name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/defp3"
         app:layout_constraintRight_toRightOf="parent"

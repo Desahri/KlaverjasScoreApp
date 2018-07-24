@@ -15,7 +15,6 @@
         android:paddingRight="15dp"
         android:gravity="right"
 
-        android:text="5"
         android:textSize="18pt"
 
         app:layout_constraintLeft_toLeftOf="parent"
@@ -26,7 +25,6 @@
         android:layout_width="60dp"
         android:layout_height="wrap_content"
 
-        android:text="123"
         android:textSize="15pt"
         app:layout_constraintBottom_toBottomOf="@+id/roundNumber"
         app:layout_constraintTop_toTopOf="@id/roundNumber"
@@ -40,7 +38,6 @@
         android:layout_height="wrap_content"
         android:gravity="right"
 
-        android:text="50"
         android:textSize="10pt"
         app:layout_constraintBottom_toBottomOf="@+id/roundNumber"
         app:layout_constraintTop_toTopOf="@id/roundNumber"
@@ -53,7 +50,6 @@
         android:layout_width="60dp"
         android:layout_height="wrap_content"
 
-        android:text="40"
         android:textSize="15pt"
         app:layout_constraintBottom_toBottomOf="@+id/roundNumber"
         app:layout_constraintTop_toTopOf="@id/roundNumber"
@@ -67,7 +63,6 @@
         android:layout_height="wrap_content"
         android:gravity="right"
 
-        android:text="NAT"
         android:textSize="10pt"
         app:layout_constraintBottom_toBottomOf="@+id/roundNumber"
         app:layout_constraintTop_toTopOf="@id/roundNumber"

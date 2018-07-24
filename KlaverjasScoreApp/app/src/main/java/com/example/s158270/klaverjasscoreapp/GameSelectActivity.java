@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -205,7 +206,7 @@ public class GameSelectActivity extends AppCompatActivity {
      */
     AlertDialog.Builder getNewGameDialogBuilder() {
         AlertDialog.Builder builder = new AlertDialog.Builder(GameSelectActivity.this);
-        builder.setTitle("New game name");
+        builder.setTitle(getString(R.string.newgame_title));
 
         final EditText input = new EditText(GameSelectActivity.this);
 
@@ -219,7 +220,7 @@ public class GameSelectActivity extends AppCompatActivity {
         builder.setView(input);
 
         // Set up the buttons
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getString(R.string.okay), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String inputText = input.getText().toString();
@@ -230,12 +231,12 @@ public class GameSelectActivity extends AppCompatActivity {
                     updateAdapter();
                 } else {
                     Snackbar snackbar = Snackbar
-                            .make(findViewById(android.R.id.content), "Name cannot be empty, duplicate or contain \"_\" or \"/\"", Snackbar.LENGTH_LONG);
+                            .make(findViewById(android.R.id.content), getString(R.string.wrong_gamename), Snackbar.LENGTH_LONG);
                     snackbar.show();
                 }
             }
         });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
@@ -253,7 +254,7 @@ public class GameSelectActivity extends AppCompatActivity {
      */
     AlertDialog.Builder getSelectPlayerDialogBuilder(final String spGameName) {
         AlertDialog.Builder builder = new AlertDialog.Builder(GameSelectActivity.this);
-        builder.setTitle("Type 4 player names");
+        builder.setTitle(getString(R.string.fourplayers_title));
 
         // Set up the input
         final EditText inputp1 = new EditText(GameSelectActivity.this);
@@ -281,7 +282,7 @@ public class GameSelectActivity extends AppCompatActivity {
         builder.setView(layout);
 
         // Set up the buttons
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getString(R.string.okay), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String[] pNames = {
@@ -295,9 +296,10 @@ public class GameSelectActivity extends AppCompatActivity {
                     if (n.replaceAll(" ", "").equals("")) {
                         validNames = false;
                         Snackbar snackbar = Snackbar
-                                .make(findViewById(android.R.id.content), "Player name cannot be empty", Snackbar.LENGTH_LONG);
+                                .make(findViewById(android.R.id.content), getString(R.string.wrong_playernames), Snackbar.LENGTH_LONG);
                         snackbar.show();
                         dialog.cancel();
+                        break;
                     }
                 }
 
@@ -311,7 +313,7 @@ public class GameSelectActivity extends AppCompatActivity {
                 }
             }
         });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
@@ -329,10 +331,12 @@ public class GameSelectActivity extends AppCompatActivity {
      */
     AlertDialog.Builder getDeleteGameDialogBuilder(final int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(GameSelectActivity.this);
-        builder.setTitle("Are you sure you want to delete:\n" + nameList.get(position));
+        TextView tv = new TextView(GameSelectActivity.this);
+        tv.setText(getString(R.string.deletegame_title) + nameList.get(position));
+        builder.setCustomTitle(tv);
 
         // Set up the buttons
-        builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 sph.deleteSharedPreferencesFile(nameList.get(position));
@@ -341,7 +345,7 @@ public class GameSelectActivity extends AppCompatActivity {
                 updateAdapter();
             }
         });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
@@ -358,10 +362,12 @@ public class GameSelectActivity extends AppCompatActivity {
      */
     AlertDialog.Builder getResetDialogBuilder() {
         AlertDialog.Builder builder = new AlertDialog.Builder(GameSelectActivity.this);
-        builder.setTitle("Are you sure you want to reset?\nThis will delete all games and settings");
+        TextView tv = new TextView(GameSelectActivity.this);
+        tv.setText(R.string.reset_title);
+        builder.setCustomTitle(tv);
 
         // Set up the buttons
-        builder.setPositiveButton("Reset", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getString(R.string.reset), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 nameList.clear();
@@ -370,7 +376,7 @@ public class GameSelectActivity extends AppCompatActivity {
                 updateAdapter();
             }
         });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();

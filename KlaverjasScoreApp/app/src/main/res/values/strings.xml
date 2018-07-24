@@ -1,10 +1,28 @@
 <resources>
     <string name="app_name">Klaverjas Score App</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Instellingen</string>
     <string name="action_reset">Reset</string>
-    <string name="button_newGame">Add new game</string>
+    <string name="button_newGame">Nieuw spel toevoegen</string>
     <string name="SP_main">general</string>
     <string name="SP_games">games</string>
-    <string name="def_name">Default player names</string>
-    <string name="hint_defname">Insert name</string>
+    <string name="def_name">Standaard spelernamen</string>
+    <string name="hint_defname">Typ speler naam</string>
+    <string name="wrong_gamename">Spelnaam mag niet leeg zijn, al bestaan of \"_\" of \"\/\" bevatten</string>
+    <string name="wrong_playernames">Spelernaam mag niet leeg zijn</string>
+    <string name="newgame_title">Nieuw spel naam</string>
+    <string name="fourplayers_title">Typ 4 spelernamen</string>
+    <string name="deletegame_title">"Weet je zeker dat je wilt verwijderen:\n"</string>
+    <string name="reset_title">Weet je zeker dat je wilt resetten?\nDit zal al jouw spellen en instellingen verwijderen</string>
+    <string name="okay">OK</string>
+    <string name="cancel">Annuleer</string>
+    <string name="delete">Verwijder</string>
+    <string name="reset">Reset</string>
+    <string name="roem0">zet roem op 0</string>
+    <string name="roem20">+20</string>
+    <string name="roem50">+50</string>
+    <string name="nat">NAT</string>
+    <string name="pit">PIT</string>
+    <string name="resetscores">Reset alle punten</string>
+    <string name="natyes">Je bent NAT, helaas</string>
+    <string name="natno">Je bent niet NAT, hoera</string>
 </resources>
