@@ -10,14 +10,12 @@ import java.util.List;
 public class SPHandler {
     private Context c;
     private SharedPreferences gSP; //used for general sp file calls
-    private SharedPreferences.Editor gSPEditor;
 
     private String gameSPStart; //string with the initial name of the spfile for a specific game
 
     public SPHandler(Context context, String fileName, String gameStringStart) {
         this.c = context;
         this.gSP = c.getSharedPreferences(fileName, Context.MODE_PRIVATE);
-        this.gSPEditor = gSP.edit();
         this.gameSPStart = gameStringStart;
     }
 
@@ -26,22 +24,23 @@ public class SPHandler {
      *
      * @param fileName the SP file name to be removed
      */
-    public void deleteSharedPreferencesFile(String fileName) {
+    public boolean deleteSharedPreferencesFile(String fileName) {
         String path = c.getFilesDir().getParent() + File.separator +
                 "shared_prefs" + File.separator + fileName + ".xml";
         File file = new File(path);
-        file.delete();
+        return file.delete();
     }
 
     /**
      * removes all SP files
      */
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public void clearSharedPreferences() {
         File dir = new File(c.getFilesDir().getParent() + "/shared_prefs/");
         String[] children = dir.list();
-        for (int i = 0; i < children.length; i++) {
+        for (String child : children) {
             // clear each of the preferences
-            c.getSharedPreferences(children[i].replace(".xml", ""), Context.MODE_PRIVATE).edit().clear().apply();
+            c.getSharedPreferences(child.replace(".xml", ""), Context.MODE_PRIVATE).edit().clear().apply();
         }
         // Make sure it has enough time to save all the commited changes
         try {
@@ -49,9 +48,9 @@ public class SPHandler {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        for (int i = 0; i < children.length; i++) {
+        for (String child : children) {
             // delete the files
-            new File(dir, children[i]).delete();
+            new File(dir, child).delete();
         }
     }
 
@@ -81,15 +80,18 @@ public class SPHandler {
      * @param doneList list of game is done states to be put in the SP
      */
     public void listToGamesSP(List<String> nameList, List<Boolean> doneList) {
-        String gameString = "";
+        StringBuilder gameString = new StringBuilder();
         for (int i = 0; i < nameList.size(); i++) {
             if (i > 0) {
-                gameString += "_";
+                gameString.append("_");
             }
-            gameString += nameList.get(i) + "_" + doneList.get(i);
+            gameString.append(nameList.get(i));
+            gameString.append("_");
+            gameString.append(doneList.get(i));
         }
-        gSPEditor.putString("games", gameString);
-        gSPEditor.commit();
+        SharedPreferences.Editor gSPEditor = gSP.edit();
+        gSPEditor.putString("games", gameString.toString());
+        gSPEditor.apply();
     }
 
     /**
@@ -99,10 +101,11 @@ public class SPHandler {
         if (players.length != 4) {
             return;
         }
+        SharedPreferences.Editor gSPEditor = gSP.edit();
         for (int i = 0; i < 4; i++) {
             gSPEditor.putString("defp" + (i + 1), players[i]);
-            gSPEditor.commit();
         }
+        gSPEditor.apply();
     }
 
     /**
@@ -167,7 +170,7 @@ public class SPHandler {
      * @param gameName name of a specific game
      * @return player names of a specific game
      */
-    public String[] getGamePlayers(String gameName) {
+    public Players getGamePlayers(String gameName) {
         SharedPreferences sp = getGameSP(gameName);
         String[] players = {
                 sp.getString("p1", ""),
@@ -175,7 +178,7 @@ public class SPHandler {
                 sp.getString("p3", ""),
                 sp.getString("p4", ""),
         };
-        return players;
+        return new Players(players);
     }
 
     /**
@@ -183,7 +186,7 @@ public class SPHandler {
      * @param tree     the tree for which to set the score
      * @param scores   scores of both teams
      */
-    public void setTreeScore(String gameName, int tree, int[] scores) {
+    private void setTreeScore(String gameName, int tree, int[] scores) {
         if (scores.length != 2 || tree < 0 || tree > 2) {
             return;
         }
@@ -191,12 +194,12 @@ public class SPHandler {
         SharedPreferences.Editor editor = sp.edit();
         editor.putInt("t" + (tree + 1) + "s" + 1, scores[0]);
         editor.putInt("t" + (tree + 1) + "s" + 2, scores[1]);
-        editor.commit();
+        editor.apply();
     }
 
     /**
      * @param gameName name of a specific game
-     * @return the score of both teams in all trees (represented in a 2d array)
+     * @return the score of both teams in all trees (represented in a 2d array) [tree][team]
      */
     public int[][] getTreeScores(String gameName) {
         int[][] treeScores = new int[3][2];
@@ -211,13 +214,12 @@ public class SPHandler {
 
     public int[] getGamePlayerScores(String gameName) {
         int[][] treeScores = getTreeScores(gameName);
-        int[] scores = {
+        return new int[]{
                 treeScores[0][0] + treeScores[1][0] + treeScores[2][0],
                 treeScores[0][0] + treeScores[1][1] + treeScores[2][1],
                 treeScores[0][1] + treeScores[1][0] + treeScores[2][1],
                 treeScores[0][1] + treeScores[1][1] + treeScores[2][0]
         };
-        return scores;
     }
 
     public void setCurrentRound(String gameName, int tree, int round) {
@@ -227,17 +229,16 @@ public class SPHandler {
         SharedPreferences sp = getGameSP(gameName);
         SharedPreferences.Editor editor = sp.edit();
         editor.putInt("t" + (tree + 1), round);
-        editor.commit();
+        editor.apply();
     }
 
     public int[] getCurrentRounds(String gameName) {
         SharedPreferences sp = getGameSP(gameName);
-        int[] rounds = {
+        return new int[]{
                 sp.getInt("t1", 1),
                 sp.getInt("t2", 1),
                 sp.getInt("t3", 1)
         };
-        return rounds;
     }
 
     public void setRoundScore(String gameName, int tree, int round, int t1Score, boolean t1NatPit, int t1Roem, int t2Roem) {
@@ -250,7 +251,7 @@ public class SPHandler {
                         t1Roem + "_" +
                         t2Roem
         );
-        editor.commit();
+        editor.apply();
         int totalT1 = 0;
         int totalT2 = 0;
         for (int i = 0; i < 16; i++) {
@@ -271,13 +272,12 @@ public class SPHandler {
 
     public int[] getRoundScoresRoem(String gameName, int tree, int round) {
         String[] info = getRoundInfo(gameName, tree, round);
-        int[] points = {
+        return new int[]{
                 Integer.parseInt(info[0]),
                 Integer.parseInt(info[1]),
                 Integer.parseInt(info[3]),
                 Integer.parseInt(info[4])
         };
-        return points;
     }
 
     public int[][] getTreeScore(String gameName, int tree) {

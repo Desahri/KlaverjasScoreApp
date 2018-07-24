@@ -10,15 +10,17 @@ import android.widget.TextView;
 
 import com.example.s158270.klaverjasscoreapp.R;
 
+import generalSPHandler.Players;
+
 public class TreeSelectAdapter extends BaseAdapter {
 
-    String[] names;
-    int[] curRounds;
-    int[][] scores;
-    LayoutInflater inflter;
+    private Players players;
+    private int[] curRounds;
+    private int[][] scores;
+    private LayoutInflater inflter;
 
-    public TreeSelectAdapter(Context applicationContext, String[] names, int[] curRounds, int[][] scores) {
-        this.names = names;
+    public TreeSelectAdapter(Context applicationContext, Players players, int[] curRounds, int[][] scores) {
+        this.players = players;
         this.curRounds = curRounds;
         this.scores = scores;
         this.inflter = (LayoutInflater.from(applicationContext));
@@ -40,6 +42,7 @@ public class TreeSelectAdapter extends BaseAdapter {
     }
 
     @Override
+    @SuppressWarnings("all")
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = inflter.inflate(R.layout.activity_treelistview, null);
 
@@ -56,34 +59,27 @@ public class TreeSelectAdapter extends BaseAdapter {
             treeRound.setText("");
         } else {
             treeDoneIcon.setImageDrawable(null);
-            treeRound.setText("" + curRounds[position]);
+            treeRound.setText(String.valueOf(curRounds[position]));
         }
 
-        switch (position) {
-            case 0:
-                teamOneText.setText(names[0] + " + " + names[1]);
-                teamTwoText.setText(names[2] + " + " + names[3]);
-                break;
-            case 1:
-                teamOneText.setText(names[0] + " + " + names[2]);
-                teamTwoText.setText(names[1] + " + " + names[3]);
-                break;
-            default:
-                teamOneText.setText(names[0] + " + " + names[3]);
-                teamTwoText.setText(names[1] + " + " + names[2]);
-                break;
-        }
+        String[] names = players.getPlayersTree(position);
+        teamOneText.setText(getTeamDisplayString(names[0], names[1], " + "));
+        teamTwoText.setText(getTeamDisplayString(names[2], names[3], " + "));
 
-        teamOneScore.setText("" + scores[position][0]);
-        teamTwoScore.setText("" + scores[position][1]);
+        teamOneScore.setText(String.valueOf(scores[position][0]));
+        teamTwoScore.setText(String.valueOf(scores[position][1]));
 
         return convertView;
     }
 
-    public void updateValues(String[] names, int[] curRounds, int[][] scores) {
-        this.names = names;
+    public void updateValues(Players players, int[] curRounds, int[][] scores) {
+        this.players = players;
         this.curRounds = curRounds;
         this.scores = scores;
         this.notifyDataSetChanged();
+    }
+
+    private String getTeamDisplayString(String p1, String p2, String separator) {
+        return p1 + separator + p2;
     }
 }

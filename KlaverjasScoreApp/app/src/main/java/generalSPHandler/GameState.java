@@ -1,5 +1,9 @@
 package generalSPHandler;
 
+/**
+ * encapsulates the state of a game:
+ * whether the game has been finished
+ */
 public class GameState {
     private final String gameName;
     private final boolean isDone;

@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import customAdapters.TreeSelectAdapter;
+import generalSPHandler.Players;
 import generalSPHandler.SPHandler;
 
 public class TreeSelectActivity extends AppCompatActivity {
@@ -24,7 +25,7 @@ public class TreeSelectActivity extends AppCompatActivity {
     SPHandler sph;
 
     //testing stuff
-    String[] names;
+    Players players;
     int[] curRounds;
     int[][] scores;
 
@@ -44,48 +45,9 @@ public class TreeSelectActivity extends AppCompatActivity {
                 getString(R.string.SP_main),
                 getString(R.string.SP_games));
 
-        names = sph.getGamePlayers(gameName);
+        players = sph.getGamePlayers(gameName);
 
-        treeList = findViewById(R.id.treelist);
-
-        treeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Intent i = new Intent(TreeSelectActivity.this, RoundSelectActivity.class);
-                i.putExtra("spGameName", gameName);
-                i.putExtra("spGameTree", position);
-                startActivity(i);
-
-            }
-        });
-
-        TextView treeListPlayer1 = findViewById(R.id.treelistPlayer1);
-        TextView treeListPlayer2 = findViewById(R.id.treelistPlayer2);
-        TextView treeListPlayer3 = findViewById(R.id.treelistPlayer3);
-        TextView treeListPlayer4 = findViewById(R.id.treelistPlayer4);
-        TextView[] treeListPlayers = {
-                treeListPlayer1,
-                treeListPlayer2,
-                treeListPlayer3,
-                treeListPlayer4
-        };
-
-        for (int i = 0; i < 4; i++) {
-            treeListPlayers[i].setText(names[i]);
-        }
-
-        TextView treeListPlayer1Score = findViewById(R.id.treelistPlayer1Score);
-        TextView treeListPlayer2Score = findViewById(R.id.treelistPlayer2Score);
-        TextView treeListPlayer3Score = findViewById(R.id.treelistPlayer3Score);
-        TextView treeListPlayer4Score = findViewById(R.id.treelistPlayer4Score);
-        TextView[] tv = {
-                treeListPlayer1Score,
-                treeListPlayer2Score,
-                treeListPlayer3Score,
-                treeListPlayer4Score
-        };
-        treeListPlayerScores = tv;
+        initializeViews();
     }
 
     @Override
@@ -108,10 +70,10 @@ public class TreeSelectActivity extends AppCompatActivity {
 
     private void updateAdapter() {
         if (tsa == null) {
-            tsa = new TreeSelectAdapter(this, names, curRounds, scores);
+            tsa = new TreeSelectAdapter(this, players, curRounds, scores);
             treeList.setAdapter(tsa);
         } else {
-            tsa.updateValues(names, curRounds, scores);
+            tsa.updateValues(players, curRounds, scores);
         }
     }
 
@@ -120,7 +82,44 @@ public class TreeSelectActivity extends AppCompatActivity {
         scores = sph.getTreeScores(gameName);
         int[] totalScores = sph.getGamePlayerScores(gameName);
         for (int i = 0; i < 4; i++) {
-            treeListPlayerScores[i].setText("" + totalScores[i]);
+            treeListPlayerScores[i].setText(String.valueOf(totalScores[i]));
         }
+    }
+
+    private void initializeViews() {
+        //declare treelist and attach itemclick listener
+        treeList = findViewById(R.id.treelist);
+
+        treeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent i = new Intent(TreeSelectActivity.this, RoundSelectActivity.class);
+                i.putExtra("spGameName", gameName);
+                i.putExtra("spGameTree", position);
+                startActivity(i);
+
+            }
+        });
+
+        //initialize player name views and set names
+        TextView[] treeListPlayers = {
+                findViewById(R.id.treelistPlayer1),
+                findViewById(R.id.treelistPlayer2),
+                findViewById(R.id.treelistPlayer3),
+                findViewById(R.id.treelistPlayer4)
+        };
+
+        String[] names = players.getPlayers();
+        for (int i = 0; i < 4; i++) {
+            treeListPlayers[i].setText(names[i]);
+        }
+
+        //declare player score
+        treeListPlayerScores = new TextView[4];
+        treeListPlayerScores[0] = findViewById(R.id.treelistPlayer1Score);
+        treeListPlayerScores[1] = findViewById(R.id.treelistPlayer2Score);
+        treeListPlayerScores[2] = findViewById(R.id.treelistPlayer3Score);
+        treeListPlayerScores[3] = findViewById(R.id.treelistPlayer4Score);
     }
 }

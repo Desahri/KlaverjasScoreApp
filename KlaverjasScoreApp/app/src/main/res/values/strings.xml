@@ -25,4 +25,5 @@
     <string name="resetscores">Reset alle punten</string>
     <string name="natyes">Je bent NAT, helaas</string>
     <string name="natno">Je bent niet NAT, hoera</string>
+    <string name="file_not_deleted">Er ging iets fout en het bestand is niet verwijderd</string>
 </resources>

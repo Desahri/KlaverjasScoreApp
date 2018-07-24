@@ -31,11 +31,11 @@ public class GameSelectActivity extends AppCompatActivity {
 
     SPHandler sph;
 
-    ArrayList<String> nameList;
-    ArrayList<Boolean> doneList;
-
     ListView gamesList;
     GameSelectAdapter gsa;
+
+    ArrayList<String> nameList;
+    ArrayList<Boolean> doneList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,38 +53,9 @@ public class GameSelectActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        gamesList = findViewById(R.id.gamesList);
+        initializeGamesList();
+        initializeAddGameButton();
         updateAdapter();
-
-        gamesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (!sph.getGameIsInitialized(nameList.get(position))) {
-                    getSelectPlayerDialogBuilder(nameList.get(position)).show();
-                } else {
-                    Intent i = new Intent(GameSelectActivity.this, TreeSelectActivity.class);
-                    i.putExtra("spGameName", nameList.get(position));
-                    startActivity(i);
-                }
-            }
-        });
-
-        gamesList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                getDeleteGameDialogBuilder(position).show();
-                return true;
-            }
-        });
-
-        Button addGame = findViewById(R.id.newGameButton);
-        addGame.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getNewGameDialogBuilder().show();
-            }
-        });
     }
 
     @Override
@@ -200,10 +171,53 @@ public class GameSelectActivity extends AppCompatActivity {
     }
 
     /**
+     * declares the gamelist and attaches item listeners
+     */
+    private void initializeGamesList() {
+        gamesList = findViewById(R.id.gamesList);
+
+        gamesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (!sph.getGameIsInitialized(nameList.get(position))) {
+                    getSelectPlayerDialogBuilder(nameList.get(position)).show();
+                } else {
+                    Intent i = new Intent(GameSelectActivity.this, TreeSelectActivity.class);
+                    i.putExtra("spGameName", nameList.get(position));
+                    startActivity(i);
+                }
+            }
+        });
+
+        gamesList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                getDeleteGameDialogBuilder(position).show();
+                return true;
+            }
+        });
+    }
+
+    /**
+     * initializes and adds a onclicklistener to the new game button
+     */
+    private void initializeAddGameButton() {
+        Button addGame = findViewById(R.id.newGameButton);
+        addGame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getNewGameDialogBuilder().show();
+            }
+        });
+    }
+
+    /**
      * creates and returns an alert dialog for creating a new game
      *
      * @return the alert dialog
      */
+    @SuppressWarnings("all")
     AlertDialog.Builder getNewGameDialogBuilder() {
         AlertDialog.Builder builder = new AlertDialog.Builder(GameSelectActivity.this);
         builder.setTitle(getString(R.string.newgame_title));
@@ -215,7 +229,8 @@ public class GameSelectActivity extends AppCompatActivity {
 
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat mdformat = new SimpleDateFormat("dd-MM-yy");
-        input.setText("game " + mdformat.format(calendar.getTime()));
+        String saveName = "game " + mdformat.format(calendar.getTime());
+        input.setText(saveName);
 
         builder.setView(input);
 
@@ -332,17 +347,23 @@ public class GameSelectActivity extends AppCompatActivity {
     AlertDialog.Builder getDeleteGameDialogBuilder(final int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(GameSelectActivity.this);
         TextView tv = new TextView(GameSelectActivity.this);
-        tv.setText(getString(R.string.deletegame_title) + nameList.get(position));
+        String deleteGame = getString(R.string.deletegame_title) + nameList.get(position);
+        tv.setText(deleteGame);
         builder.setCustomTitle(tv);
 
         // Set up the buttons
         builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                sph.deleteSharedPreferencesFile(nameList.get(position));
+                boolean deleted = sph.deleteSharedPreferencesFile(nameList.get(position));
                 nameList.remove(position);
                 doneList.remove(position);
                 updateAdapter();
+                if (!deleted) {
+                    Snackbar snackbar = Snackbar
+                            .make(findViewById(android.R.id.content), getString(R.string.file_not_deleted), Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                }
             }
         });
         builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {

@@ -9,7 +9,7 @@ import generalSPHandler.SPHandler;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    EditText etdp1, etdp2, etdp3, etdp4;
+    EditText[] editTexts;
     SPHandler sph;
 
     @Override
@@ -26,33 +26,16 @@ public class SettingsActivity extends AppCompatActivity {
                 getString(R.string.SP_main),
                 getString(R.string.SP_games));
 
-        etdp1 = findViewById(R.id.defp1);
-        etdp2 = findViewById(R.id.defp2);
-        etdp3 = findViewById(R.id.defp3);
-        etdp4 = findViewById(R.id.defp4);
-
-        EditText[] editTexts = {
-                etdp1,
-                etdp2,
-                etdp3,
-                etdp4
-        };
-
-        String[] defPlayers = sph.getDefaultPlayers();
-        for (int i = 0; i < 4; i++) {
-            editTexts[i].setText(defPlayers[i]);
-        }
+        initializeEditTexts();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        String[] players = {
-                etdp1.getText().toString(),
-                etdp2.getText().toString(),
-                etdp3.getText().toString(),
-                etdp4.getText().toString()
-        };
+        String[] players = new String[4];
+        for (int i = 0; i < 4; i++) {
+            players[i] = editTexts[i].getText().toString();
+        }
         sph.setDefaultPlayers(players);
     }
 
@@ -64,6 +47,18 @@ public class SettingsActivity extends AppCompatActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void initializeEditTexts() {
+        editTexts[0] = findViewById(R.id.defp1);
+        editTexts[1] = findViewById(R.id.defp2);
+        editTexts[2] = findViewById(R.id.defp3);
+        editTexts[3] = findViewById(R.id.defp4);
+
+        String[] defPlayers = sph.getDefaultPlayers();
+        for (int i = 0; i < 4; i++) {
+            editTexts[i].setText(defPlayers[i]);
         }
     }
 }
