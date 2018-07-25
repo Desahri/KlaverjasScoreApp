@@ -33,6 +33,7 @@ public class RoundScoreActivity extends AppCompatActivity implements View.OnClic
     TextWatcher tw1, tw2;
 
     @Override
+    @SuppressWarnings("all")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_round_score);
@@ -149,6 +150,9 @@ public class RoundScoreActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void setScoreRoem() {
+        if (scoreTeam1 == 0 && roemTeam2 < 100) {
+            natPitTeam1 = true;
+        }
         sph.setRoundScore(gameName, tree, round,
                 scoreTeam1,
                 natPitTeam1,
