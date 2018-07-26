@@ -71,7 +71,7 @@ public class RoundScoreActivity extends AppCompatActivity implements View.OnClic
         updateVariables();
         setScoreRoem();
         //only updates current round if the score of either team has changed
-        if (!(scoreTeam1 == 0 && scoreTeam2 == 0)) {
+        if (!(scoreTeam1 == 0 && scoreTeam2 == 0) && (round + 1 == sph.getCurrentRounds(gameName)[tree])) {
             sph.setCurrentRound(gameName, tree, (round + 2) % 17);
         }
 
