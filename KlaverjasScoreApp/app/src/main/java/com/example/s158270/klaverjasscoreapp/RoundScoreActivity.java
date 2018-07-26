@@ -24,7 +24,7 @@ public class RoundScoreActivity extends AppCompatActivity implements View.OnClic
 
     int scoreTeam1, scoreTeam2;
     int roemTeam1, roemTeam2;
-    boolean natPitTeam1;
+    boolean natPitTeam1, natPitTeam2;
 
     EditText scoreTeam1View, scoreTeam2View;
     TextView roemTeam1View, roemTeam2View;
@@ -69,9 +69,9 @@ public class RoundScoreActivity extends AppCompatActivity implements View.OnClic
     protected void onPause() {
         super.onPause();
         updateVariables();
-        //only updates values in SP if the score of either team has changed
+        setScoreRoem();
+        //only updates current round if the score of either team has changed
         if (!(scoreTeam1 == 0 && scoreTeam2 == 0)) {
-            setScoreRoem();
             sph.setCurrentRound(gameName, tree, (round + 2) % 17);
         }
 
@@ -123,7 +123,7 @@ public class RoundScoreActivity extends AppCompatActivity implements View.OnClic
         }
 
         //definition of a pit for team 2
-        if (scoreTeam1 == 0 && scoreTeam2 != 0) {
+        if (scoreTeam1 == 0 && scoreTeam2 != 0 && natPitTeam2) {
             roemTeam1View.setText(getString(R.string.pit));
             return;
         }
@@ -135,7 +135,7 @@ public class RoundScoreActivity extends AppCompatActivity implements View.OnClic
         }
 
         //definition of a nat for team 2
-        if (scoreTeam1 != 0 && scoreTeam2 == 0) {
+        if (scoreTeam1 != 0 && scoreTeam2 == 0 && natPitTeam2) {
             roemTeam2View.setText(getString(R.string.nat));
         }
     }
@@ -146,25 +146,17 @@ public class RoundScoreActivity extends AppCompatActivity implements View.OnClic
         scoreTeam2 = scoreRoem[1];
         roemTeam1 = scoreRoem[2];
         roemTeam2 = scoreRoem[3];
-        natPitTeam1 = sph.getRoundsTeam1NatPit(gameName, tree)[round];
+        boolean[] natPit = sph.getRoundNatPit(gameName, tree, round);
+        natPitTeam1 = natPit[0];
+        natPitTeam2 = natPit[1];
     }
 
     private void setScoreRoem() {
-        if (scoreTeam1 == 0) {
-            roemTeam1 = 0;
-            if (roemTeam2 < 100) {
-                natPitTeam1 = true;
-            }
-        }
-        if (scoreTeam2 == 0) {
-            roemTeam2 = 0;
-            if (roemTeam1 < 100) {
-                natPitTeam1 = false;
-            }
-        }
         sph.setRoundScore(gameName, tree, round,
                 scoreTeam1,
+                scoreTeam2,
                 natPitTeam1,
+                natPitTeam2,
                 roemTeam1,
                 roemTeam2);
     }
@@ -202,6 +194,7 @@ public class RoundScoreActivity extends AppCompatActivity implements View.OnClic
                     roemTeam2 += roemTeam1;
                     roemTeam1 = 0;
                     natPitTeam1 = true;
+                    natPitTeam2 = false;
                     showSnackbar(getString(R.string.natyes));
                 } else {
                     showSnackbar(getString(R.string.natno));
@@ -216,6 +209,7 @@ public class RoundScoreActivity extends AppCompatActivity implements View.OnClic
                 roemTeam1 += 100;
                 roemTeam2 = 0;
                 natPitTeam1 = true;
+                natPitTeam2 = false;
                 return;
             }
 
@@ -248,6 +242,7 @@ public class RoundScoreActivity extends AppCompatActivity implements View.OnClic
                     roemTeam1 += roemTeam2;
                     roemTeam2 = 0;
                     natPitTeam1 = false;
+                    natPitTeam2 = true;
                     showSnackbar(getString(R.string.natyes));
                 } else {
                     showSnackbar(getString(R.string.natno));
@@ -262,6 +257,7 @@ public class RoundScoreActivity extends AppCompatActivity implements View.OnClic
                 roemTeam1 = 0;
                 roemTeam2 += 100;
                 natPitTeam1 = false;
+                natPitTeam2 = true;
             }
         } finally {
             updateView();
@@ -323,6 +319,8 @@ public class RoundScoreActivity extends AppCompatActivity implements View.OnClic
                 scoreTeam2 = 0;
                 roemTeam1 = 0;
                 roemTeam2 = 0;
+                natPitTeam1 = false;
+                natPitTeam2 = false;
                 updateView();
                 buttons[4][0].setClickable(true);
                 buttons[4][1].setClickable(true);

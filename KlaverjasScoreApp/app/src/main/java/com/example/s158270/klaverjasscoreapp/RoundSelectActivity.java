@@ -23,7 +23,7 @@ public class RoundSelectActivity extends AppCompatActivity {
 
     int[][] roems;
     int[][] scores;
-    boolean[] t1NatPit;
+    boolean[][] natPit;
     int curRound;
 
     ListView roundList;
@@ -32,6 +32,7 @@ public class RoundSelectActivity extends AppCompatActivity {
     TextView team1Score, team2Score;
 
     @Override
+    @SuppressWarnings("all")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_round_select);
@@ -57,7 +58,7 @@ public class RoundSelectActivity extends AppCompatActivity {
         scores = sph.getTreeScore(gameName, tree);
         roems = sph.getTreeRoems(gameName, tree);
         curRound = sph.getCurrentRounds(gameName)[tree];
-        t1NatPit = sph.getRoundsTeam1NatPit(gameName, tree);
+        natPit = sph.getRoundsNatPit(gameName, tree);
         updateAdapter();
         updateTotals();
 
@@ -85,10 +86,10 @@ public class RoundSelectActivity extends AppCompatActivity {
 
     private void updateAdapter() {
         if (rsa == null) {
-            rsa = new RoundSelectAdapter(this, roems, scores, t1NatPit, curRound);
+            rsa = new RoundSelectAdapter(this, roems, scores, natPit, curRound);
             roundList.setAdapter(rsa);
         } else {
-            rsa.updateValues(roems, scores, t1NatPit, curRound);
+            rsa.updateValues(roems, scores, natPit, curRound);
         }
     }
 

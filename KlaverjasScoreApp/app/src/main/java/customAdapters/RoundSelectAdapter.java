@@ -14,15 +14,15 @@ public class RoundSelectAdapter extends BaseAdapter {
 
     private int[][] roems;
     private int[][] scores;
-    private boolean[] t1NatPit;
+    private boolean[][] natPit;
     private int curRound;
     private Context context;
     private LayoutInflater inflter;
 
-    public RoundSelectAdapter(Context applicationContext, int[][] roems, int[][] scores, boolean[] t1NatPit, int currentRound) {
+    public RoundSelectAdapter(Context applicationContext, int[][] roems, int[][] scores, boolean[][] natPit, int currentRound) {
         this.roems = roems;
         this.scores = scores;
-        this.t1NatPit = t1NatPit;
+        this.natPit = natPit;
         this.curRound = currentRound;
         this.context = applicationContext;
         this.inflter = (LayoutInflater.from(applicationContext));
@@ -63,19 +63,18 @@ public class RoundSelectAdapter extends BaseAdapter {
 
         team1Roem = convertView.findViewById(R.id.roundTeam1Roem);
         team2Roem = convertView.findViewById(R.id.roundTeam2Roem);
-        if ((scores[position][0] != 0 && scores[position][0] != 162) || (scores[position][0] == 0 && scores[position][1] == 0)) {
-            team1Roem.setText(String.valueOf(roems[position][0]));
-            team2Roem.setText(String.valueOf(roems[position][1]));
-        } else if (scores[position][0] == 0 && t1NatPit[position]) {
+        team1Roem.setText(String.valueOf(roems[position][0]));
+        team2Roem.setText(String.valueOf(roems[position][1]));
+        if (scores[position][0] == 0 && natPit[position][0]) {
             team1Roem.setText(context.getString(R.string.nat));
             team2Roem.setText(String.valueOf(roems[position][1]));
-        } else if (scores[position][0] == 162 && t1NatPit[position]) {
+        } else if (scores[position][0] == 162 && natPit[position][0]) {
             team1Roem.setText(String.valueOf(roems[position][0]));
             team2Roem.setText(context.getString(R.string.pit));
-        } else if (scores[position][0] == 0 && !t1NatPit[position]) {
+        } else if (scores[position][1] == 162 && natPit[position][1]) {
             team1Roem.setText(context.getString(R.string.pit));
             team2Roem.setText(String.valueOf(roems[position][1]));
-        } else if (scores[position][0] == 162 && !t1NatPit[position]) {
+        } else if (scores[position][1] == 0 && natPit[position][1]) {
             team1Roem.setText(String.valueOf(roems[position][0]));
             team2Roem.setText(context.getString(R.string.nat));
         }
@@ -88,10 +87,10 @@ public class RoundSelectAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public void updateValues(int[][] roems, int[][] scores, boolean[] t1NatPit, int currentRound) {
+    public void updateValues(int[][] roems, int[][] scores, boolean[][] natPit, int currentRound) {
         this.roems = roems;
         this.scores = scores;
-        this.t1NatPit = t1NatPit;
+        this.natPit = natPit;
         this.curRound = currentRound;
         this.notifyDataSetChanged();
     }

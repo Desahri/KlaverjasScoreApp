@@ -241,13 +241,17 @@ public class SPHandler {
         };
     }
 
-    public void setRoundScore(String gameName, int tree, int round, int t1Score, boolean t1NatPit, int t1Roem, int t2Roem) {
+    public void setRoundScore(String gameName, int tree, int round,
+                              int t1Score, int t2Score,
+                              boolean t1NatPit, boolean t2NatPit,
+                              int t1Roem, int t2Roem) {
         SharedPreferences sp = getGameSP(gameName);
         SharedPreferences.Editor editor = sp.edit();
         editor.putString("t" + (tree + 1) + "r" + (round + 1),
                 "" + t1Score + "_" +
-                        (162 - t1Score) + "_" +
+                        t2Score + "_" +
                         t1NatPit + "_" +
+                        t2NatPit + "_" +
                         t1Roem + "_" +
                         t2Roem
         );
@@ -267,7 +271,7 @@ public class SPHandler {
 
     private String[] getRoundInfo(String gameName, int tree, int round) {
         SharedPreferences sp = getGameSP(gameName);
-        return sp.getString("t" + (tree + 1) + "r" + (round + 1), "0_0_false_0_0").split("_");
+        return sp.getString("t" + (tree + 1) + "r" + (round + 1), "0_0_false_false_0_0").split("_");
     }
 
     public int[] getRoundScoresRoem(String gameName, int tree, int round) {
@@ -275,8 +279,16 @@ public class SPHandler {
         return new int[]{
                 Integer.parseInt(info[0]),
                 Integer.parseInt(info[1]),
-                Integer.parseInt(info[3]),
-                Integer.parseInt(info[4])
+                Integer.parseInt(info[4]),
+                Integer.parseInt(info[5])
+        };
+    }
+
+    public boolean[] getRoundNatPit(String gameName, int tree, int round) {
+        String[] info = getRoundInfo(gameName, tree, round);
+        return new boolean[]{
+                Boolean.parseBoolean(info[2]),
+                Boolean.parseBoolean(info[3])
         };
     }
 
@@ -298,10 +310,11 @@ public class SPHandler {
         return r;
     }
 
-    public boolean[] getRoundsTeam1NatPit(String gameName, int tree) {
-        boolean[] r = new boolean[16];
+    public boolean[][] getRoundsNatPit(String gameName, int tree) {
+        boolean[][] r = new boolean[16][2];
         for (int i = 0; i < 16; i++) {
-            r[i] = Boolean.parseBoolean(getRoundInfo(gameName, tree, i)[2]);
+            r[i][0] = Boolean.parseBoolean(getRoundInfo(gameName, tree, i)[2]);
+            r[i][1] = Boolean.parseBoolean(getRoundInfo(gameName, tree, i)[3]);
         }
         return r;
     }
