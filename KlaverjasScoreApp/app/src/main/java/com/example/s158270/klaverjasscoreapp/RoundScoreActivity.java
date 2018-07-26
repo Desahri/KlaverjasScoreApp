@@ -188,7 +188,7 @@ public class RoundScoreActivity extends AppCompatActivity implements View.OnClic
 
             //check if NAT team 1
             if (v == buttons[3][0]) {
-                if (scoreTeam1 + roemTeam1 <= scoreTeam2 + roemTeam2) {
+                if (scoreTeam1 + roemTeam1 <= scoreTeam2 + roemTeam2 || (scoreTeam1 == 0 && scoreTeam2 == 0)) {
                     scoreTeam1 = 0;
                     scoreTeam2 = 162;
                     roemTeam2 += roemTeam1;
@@ -236,7 +236,7 @@ public class RoundScoreActivity extends AppCompatActivity implements View.OnClic
 
             //check if NAT team 2
             if (v == buttons[3][1]) {
-                if (scoreTeam2 + roemTeam2 <= scoreTeam1 + roemTeam1) {
+                if (scoreTeam2 + roemTeam2 <= scoreTeam1 + roemTeam1 || (scoreTeam1 == 0 && scoreTeam2 == 0)) {
                     scoreTeam1 = 162;
                     scoreTeam2 = 0;
                     roemTeam1 += roemTeam2;
