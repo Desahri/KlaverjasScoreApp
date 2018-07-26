@@ -150,8 +150,17 @@ public class RoundScoreActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void setScoreRoem() {
-        if (scoreTeam1 == 0 && roemTeam2 < 100) {
-            natPitTeam1 = true;
+        if (scoreTeam1 == 0) {
+            roemTeam1 = 0;
+            if (roemTeam2 < 100) {
+                natPitTeam1 = true;
+            }
+        }
+        if (scoreTeam2 == 0) {
+            roemTeam2 = 0;
+            if (roemTeam1 < 100) {
+                natPitTeam1 = false;
+            }
         }
         sph.setRoundScore(gameName, tree, round,
                 scoreTeam1,
