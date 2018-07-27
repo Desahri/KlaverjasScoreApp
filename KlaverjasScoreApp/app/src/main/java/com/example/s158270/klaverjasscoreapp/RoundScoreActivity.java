@@ -1,5 +1,6 @@
 package com.example.s158270.klaverjasscoreapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -81,7 +82,7 @@ public class RoundScoreActivity extends AppCompatActivity implements View.OnClic
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                this.finish();
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -330,6 +331,32 @@ public class RoundScoreActivity extends AppCompatActivity implements View.OnClic
         //declare the score views
         scoreTeam1View = findViewById(R.id.roundScorePointsT1);
         scoreTeam2View = findViewById(R.id.roundScorePointsT2);
+
+        //current round textview
+        TextView curRound = findViewById(R.id.currentRound);
+        curRound.setText(String.valueOf(round + 1));
+
+        //next round textview
+        Button nextRound = findViewById(R.id.tonextround);
+        nextRound.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (scoreTeam1 == 0 && scoreTeam2 == 0) {
+                    showSnackbar(getString(R.string.not_nextround));
+                    return;
+                }
+                if (round == 15) {
+                    showSnackbar(getString(R.string.lastround));
+                    return;
+                }
+                Intent i = new Intent(RoundScoreActivity.this, RoundScoreActivity.class);
+                i.putExtra("spGameName", gameName);
+                i.putExtra("spGameTree", tree);
+                i.putExtra("spGameRound", round + 1);
+                startActivity(i);
+                finish();
+            }
+        });
     }
 
     private void initializeTextWatchers() {
@@ -409,7 +436,7 @@ public class RoundScoreActivity extends AppCompatActivity implements View.OnClic
 
     private void showSnackbar(String text) {
         Snackbar snackbar = Snackbar
-                .make(findViewById(android.R.id.content), text, Snackbar.LENGTH_LONG);
+                .make(findViewById(android.R.id.content), text, Snackbar.LENGTH_SHORT);
         snackbar.show();
     }
 }

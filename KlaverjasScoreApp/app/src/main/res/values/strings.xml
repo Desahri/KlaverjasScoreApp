@@ -26,4 +26,7 @@
     <string name="natyes">Je bent NAT, helaas</string>
     <string name="natno">Je bent niet NAT, hoera</string>
     <string name="file_not_deleted">Er ging iets fout en het bestand is niet verwijderd</string>
+    <string name="tonextround">Naar volgende ronde</string>
+    <string name="not_nextround">Kan niet naar volgende ronde:\nDeze ronde is nog niet ingevuld</string>
+    <string name="lastround">Kan niet naar volgende ronde:\nDit is de laatste ronde</string>
 </resources>
