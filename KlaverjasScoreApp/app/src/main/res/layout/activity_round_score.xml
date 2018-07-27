@@ -188,11 +188,10 @@
         android:layout_height="wrap_content"
 
         app:layout_constraintTop_toBottomOf="@+id/roundScoreLineRoem"
-        app:layout_constraintBottom_toTopOf="@+id/roundScoreT1Pit"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/roundScoreMiddle"
+        android:textSize="15pt"
 
-        android:textSize="20pt"
+        app:layout_constraintRight_toLeftOf="@+id/roundScoreT1Pit"
         android:text="@string/nat" />
 
     <Button
@@ -200,12 +199,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
 
-        app:layout_constraintTop_toBottomOf="@+id/roundScoreT1Nat"
-        app:layout_constraintBottom_toTopOf="@+id/roundScoreResetScores"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:textSize="15pt"
+        app:layout_constraintLeft_toRightOf="@+id/roundScoreT1Nat"
         app:layout_constraintRight_toLeftOf="@+id/roundScoreMiddle"
 
-        android:textSize="20pt"
+        app:layout_constraintTop_toBottomOf="@+id/roundScoreLineRoem"
         android:text="@string/pit" />
 
     <!-- Team 2 buttons -->
@@ -254,11 +252,10 @@
         android:layout_height="wrap_content"
 
         app:layout_constraintTop_toBottomOf="@+id/roundScoreLineRoem"
-        app:layout_constraintBottom_toTopOf="@+id/roundScoreT2Pit"
         app:layout_constraintLeft_toRightOf="@+id/roundScoreMiddle"
-        app:layout_constraintRight_toRightOf="parent"
+        android:textSize="15pt"
 
-        android:textSize="20pt"
+        app:layout_constraintRight_toLeftOf="@+id/roundScoreT2Pit"
         android:text="@string/nat" />
 
     <Button
@@ -266,12 +263,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
 
-        app:layout_constraintTop_toBottomOf="@+id/roundScoreT2Nat"
-        app:layout_constraintBottom_toTopOf="@+id/roundScoreResetScores"
-        app:layout_constraintLeft_toRightOf="@+id/roundScoreMiddle"
+        android:textSize="15pt"
+        app:layout_constraintLeft_toRightOf="@+id/roundScoreT2Nat"
         app:layout_constraintRight_toRightOf="parent"
 
-        android:textSize="20pt"
+        app:layout_constraintTop_toBottomOf="@+id/roundScoreLineRoem"
         android:text="@string/pit" />
 
     <Button
