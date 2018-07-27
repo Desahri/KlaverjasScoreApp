@@ -80,9 +80,19 @@ public class RoundSelectAdapter extends BaseAdapter {
         }
 
         if (position + 1 < curRound || curRound == 0) {
-            convertView.setBackgroundColor(Color.argb(208, 0, 100, 0));
+            convertView.setBackgroundColor(Color.argb(255, 150, 200, 150));
         } else if (position + 1 > curRound) {
-            convertView.setBackgroundColor(Color.argb(208, 100, 0, 0));
+            convertView.setBackgroundColor(Color.argb(255, 200, 120, 120));
+        } else {
+            convertView.setBackgroundColor(Color.argb(255, 255, 255, 0));
+        }
+
+        if (position % 4 == 3 && position != 15) {
+            View divider = convertView.findViewById(R.id.roundsitemdivider);
+            ViewGroup.LayoutParams params = divider.getLayoutParams();
+            params.height *= 6;
+            divider.setLayoutParams(params);
+
         }
         return convertView;
     }
