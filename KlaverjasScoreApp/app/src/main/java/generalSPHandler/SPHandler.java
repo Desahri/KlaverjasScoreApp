@@ -2,6 +2,7 @@ package generalSPHandler;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -26,7 +27,8 @@ public class SPHandler {
      */
     public boolean deleteSharedPreferencesFile(String fileName) {
         String path = c.getFilesDir().getParent() + File.separator +
-                "shared_prefs" + File.separator + fileName + ".xml";
+                "shared_prefs" + File.separator + gameSPStart + "_" + fileName + ".xml";
+        Log.d("path", path);
         File file = new File(path);
         return file.delete();
     }
@@ -123,6 +125,7 @@ public class SPHandler {
     //game specific sp files methods ---------------------------------------------------------------
 
     private SharedPreferences getGameSP(String gameName) {
+        Log.d("game file name", gameSPStart + "_" + gameName + ".xml");
         return c.getSharedPreferences(gameSPStart + "_" + gameName, Context.MODE_PRIVATE);
     }
 

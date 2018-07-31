@@ -51,6 +51,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void initializeEditTexts() {
+        editTexts = new EditText[4];
         editTexts[0] = findViewById(R.id.defp1);
         editTexts[1] = findViewById(R.id.defp2);
         editTexts[2] = findViewById(R.id.defp3);
