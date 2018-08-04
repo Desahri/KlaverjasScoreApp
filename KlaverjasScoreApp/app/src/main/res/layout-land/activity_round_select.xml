@@ -24,7 +24,6 @@
 
             android:padding="15dp"
 
-            android:text="Didier + Laurent"
             android:textSize="10pt" />
 
         <TextView
@@ -37,7 +36,6 @@
 
             android:padding="15dp"
 
-            android:text="Frans + Joelle"
             android:textSize="10pt" />
 
         <TextView
@@ -146,7 +144,7 @@
         app:layout_constraintLeft_toRightOf="@+id/roundcorner"
         app:layout_constraintRight_toLeftOf="@+id/roundteamdivider"
 
-        android:text="+"
+        android:text="@string/teamNameSeparator"
         android:textSize="10pt" />
 
     <TextView
@@ -183,7 +181,7 @@
         app:layout_constraintLeft_toRightOf="@+id/roundteamdivider"
         app:layout_constraintRight_toRightOf="parent"
 
-        android:text="+"
+        android:text="@string/teamNameSeparator"
         android:textSize="10pt" />
 
 

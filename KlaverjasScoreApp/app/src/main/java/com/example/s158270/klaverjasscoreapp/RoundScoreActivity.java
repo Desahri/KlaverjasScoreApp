@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import generalSPHandler.Players;
@@ -26,6 +27,7 @@ public class RoundScoreActivity extends AppCompatActivity implements View.OnClic
     int scoreTeam1, scoreTeam2;
     int roemTeam1, roemTeam2;
     boolean natPitTeam1, natPitTeam2;
+    int trump;
 
     EditText scoreTeam1View, scoreTeam2View;
     TextView roemTeam1View, roemTeam2View;
@@ -357,6 +359,36 @@ public class RoundScoreActivity extends AppCompatActivity implements View.OnClic
                 finish();
             }
         });
+
+        //trump imageview
+        ImageView trumpView = findViewById(R.id.trumpImage);
+        trump = round; //0 == clubs, 1 == hearts, 2 == spades, 3 == diamonds
+        setTrump(trumpView);
+        trumpView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                trump++;
+                setTrump((ImageView) v);
+            }
+        });
+
+    }
+
+    private void setTrump(ImageView iv) {
+        switch (trump % 4) {
+            case 0:
+                iv.setImageResource(R.drawable.clubs);
+                break;
+            case 1:
+                iv.setImageResource(R.drawable.hearts);
+                break;
+            case 2:
+                iv.setImageResource(R.drawable.spades);
+                break;
+            default:
+                iv.setImageResource(R.drawable.diamonds);
+                break;
+        }
     }
 
     private void initializeTextWatchers() {

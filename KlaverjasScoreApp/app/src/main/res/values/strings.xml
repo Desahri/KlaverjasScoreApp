@@ -29,4 +29,5 @@
     <string name="tonextround">Naar volgende ronde</string>
     <string name="not_nextround">Kan niet naar volgende ronde:\nDeze ronde is nog niet ingevuld</string>
     <string name="lastround">Kan niet naar volgende ronde:\nDit is de laatste ronde</string>
+    <string name="teamNameSeparator">+</string>
 </resources>
